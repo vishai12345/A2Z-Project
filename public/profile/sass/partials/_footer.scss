@@ -1,0 +1,53 @@
+.footer
+{
+	background:$blakish;
+	padding:30px 0px;
+}
+.footer h2
+{
+	color:$white;
+	font-size:$fontSize-base;
+	margin-bottom:20px;
+
+}
+.footer a
+{
+	color:$white;
+	text-decoration:none;
+}
+.footer a:hover
+{
+	color:$red !important;
+	text-decoration:none;
+	transition: all .3s ease-in-out;
+}
+.copyright
+{
+	padding:30px 0px;
+	text-align:center;
+	border-bottom:1px solid #555
+	
+}
+.copyright a
+{
+	font-size:$fontSize-largeLess;
+	padding:0 10px;
+}
+.scrollToTop{
+    background: $red none repeat scroll 0 0;
+    border-radius: 5px;
+    bottom: 75px;
+    color: $white !important;
+    display: none;
+    font-size: $fontSize-largeX;
+    font-weight: $fontWeight-bold;
+    line-height: $lineHeight-zero;
+    padding: 3px 10px 6px;
+    position: fixed;
+    right: 40px;
+    text-align: center;
+    text-decoration: none;
+}
+.scrollToTop:hover{
+	text-decoration:none;
+}

@@ -1,0 +1,138 @@
+.banner-text
+{
+	text-align:center;
+	color:$white;
+	padding-top:15%;
+	@include breakpoint (small down){
+		padding-top:10%;
+	}
+}
+.banner-text h1
+{
+	font-size:40px;	
+	@include breakpoint (small down) {
+		font-size:35px;
+	}
+}
+.banner-text .form-control
+{
+	border-radius:0px;
+}
+.banner-text .btn
+{
+	border-radius: 0 6px 6px 0;
+	transition: all 0.3s ease-in-out;
+}
+.btn-danger {
+	color: $white;
+	background-color:$red;
+	border-color: $red;
+}
+.banner-box .col-sm-1
+{
+	padding:0px 5px;
+}
+.banner-box
+{
+	text-align:center;
+	padding-top:13%;
+	@include breakpoint(large down)
+	{
+		padding-top:18%;
+	}
+}
+.banner-box h3{
+	    color:$white;
+}
+
+.banner-text .form-control.need-help{
+	font-size: $fontSize-base;
+    background-repeat: no-repeat;
+	background-position: 9px;
+	margin: 0px;
+	width: 100%;
+	border-radius: 6px 0 0 6px;
+	@include breakpoint (small down){
+		border-radius:0 !important;
+	}
+}
+input.empty {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+.box-ban
+{
+	border:1px solid $white;
+	text-align:center;
+	color:$white;
+	padding:10px 0px;
+	font-size:$fontSize-xsmall;
+	border-radius:4px;
+}
+
+.box-ban p
+{
+	margin:10px 0px 0px 0px;
+	transition: .4s;
+}
+
+.box-ban a {
+	text-decoration: none;
+	transition: all 0.3s ease-in-out;
+	color:$white;
+}
+
+.box-ban a:hover
+{
+	color:$red !important;
+	display: block;
+}
+.col-md-100 {
+    display: inline-block;
+    width: 7%;
+    @include breakpoint (small down){
+    	width:50%;
+		margin:5px 0px;
+    }
+    & p{
+    	@media screen and (max-width:375px)
+    {
+    	font-size:10px;
+    }
+}
+}
+.cta-text {
+    bottom: 100%;
+    color:white;
+    top: -150px;
+    right: 15px;
+    width: 115px;
+    position: absolute;
+    font-size: $fontSize-baseUp;
+}
+.cta-text:after {
+    background: url(../img/arrow.svg) center center no-repeat;
+    background-size: cover;
+    content: "";
+    display: block;
+    height: 50px;
+    left: 10px;
+    margin-top: 5px;
+    position: absolute;
+    top: 35%;
+    width: 58px;
+}
+.banner-text .col-md-10 div
+{
+	@include breakpoint (small down){
+		margin:10px 0px;
+	}
+}
+.search-field .btn-block
+{
+	@include breakpoint (small down){
+	border-radius:0 !important;
+	}
+}

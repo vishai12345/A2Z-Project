@@ -1,0 +1,13 @@
+.black a{
+	color:black !important;
+	text-decoration: none;
+	font-size: $fontSize-base;
+	font-weight: $fontWeight-semibold;
+	text-align: left;
+	padding: 11px;
+    line-height: $lineHeight-double;
+}
+.black a:hover {
+	color:$red !important;
+	transition: all .3s ease-in-out;
+}

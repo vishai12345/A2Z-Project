@@ -1,0 +1,101 @@
+.image {
+    position:relative;
+    img{
+    	 width:100%;
+    	 vertical-align:top;
+    }
+    &:after{
+	    content:'';
+	    display: block;
+	    color:$white;
+	    position:absolute;
+	    width:100%; height:100%;
+	    top:0; left:0;
+	    background:rgba(0,0,0,0.6);
+	    opacity:0;
+	    transition: all 0.5s;
+	    -webkit-transition: all 0.5s;	
+    }
+    &:hover{
+    	&:after{
+			opacity:1;
+    	}
+    }
+}
+
+.city img
+{
+	max-width:100%;
+	border-radius:4px;
+}
+.img-box
+{
+	position:relative;
+	text-align:center;
+	background-color: $black;
+	max-width: 226px;
+	border-radius: $fontSize-base;
+	.image a{
+		color: $white;
+	}
+}
+.city
+{
+	text-align:center;
+	padding:20px 0px;
+}
+.city h1
+{
+	@include breakpoint (small down){
+	font-size:30px;
+	}
+}
+.city .col-sm-3
+{
+	margin:15px 0;
+	color:$white;
+	display: inline-block;
+	@include breakpoint(medium up){
+		width:33.33%;	
+	}
+	@include breakpoint(mobile down){
+		width:33.33%;	
+	}
+	@include breakpoint(xmedium up) {
+		width:20%;	
+	}
+}
+.img-box:hover .img-abslt
+{
+	display:block
+}
+.img-abslt
+{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	z-index: 1;
+	text-align:center;
+	padding-top:30%;
+	display:none;
+}
+.img-abslt a {
+	color:$white;
+	text-decoration: none;
+}
+.img-abslt h2 {
+	@include breakpoint(large down) {
+		font-size: $fontSize-large;
+	}
+}
+.img-abslt h3 {
+	@include breakpoint(large down) {
+		font-size: $fontSize-largeLess;
+	}
+}
+.img-abslt a:hover {
+	text-decoration: none;
+	transition: all .3s ease-in-out;
+}

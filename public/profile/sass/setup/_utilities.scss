@@ -1,0 +1,117 @@
+.nopadding
+{
+	padding:0px !important
+}
+.nomargin
+{
+	margin:0px !important
+}
+.margintop10
+{
+	margin-top:10px !important
+}
+.margintop15
+{
+	margin-top:15px !important
+}
+.margintop20
+{
+	margin-top:20px !important
+}
+.margintop25
+{
+	margin-top:25px !important
+}
+.margintop30
+{
+	margin-top:00px !important
+}
+.margintop35
+{
+	margin-top:35px !important
+}
+.margintop40
+{
+	margin-top:40px !important
+}
+.margintop45
+{
+	margin-top:45px !important
+}
+.paddingtop10
+{
+	padding-top:10px !important
+}
+.paddingtop15
+{
+	padding-top:15px !important
+}
+.paddingtop20
+{
+	padding-top:20px !important
+}
+.paddingtop25
+{
+	padding-top:25px !important
+}
+.paddingtop30
+{
+	padding-top:00px !important
+}
+.paddingtop35
+{
+	padding-top:35px !important
+}
+.paddingtop40
+{
+	padding-top:40px !important
+}
+.paddingtop45
+{
+	padding-top:45px !important
+}
+.paddy {
+	padding-top: 50px;
+}
+
+
+.tab {
+	display: table;
+	border-collapse:separate;
+	border-spacing:30px;
+}
+.tabcell {
+	display: table-cell;
+	height: auto;
+    overflow: hidden;
+}
+.popular
+{
+	text-align:center
+}
+.popular h1
+{
+	margin-bottom:20px;
+	font-size:30px;
+}
+.popular li
+{
+	margin:8px 0px;
+	font-size:16px;
+}
+.help-text{
+	color:#fff;
+}
+@media(max-width:767px) {
+	.popular ul
+	{
+		padding:0px;
+		margin-top:20px;
+	}
+}
+
+@media screen and (max-width: 991px) {
+.become-student {
+    margin-top: 30px;
+	}
+}

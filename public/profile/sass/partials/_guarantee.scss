@@ -1,0 +1,46 @@
+.p100per
+{
+  text-align:center;
+  padding:50px 0px;
+}
+.p100per p
+{
+  font-size:16px;
+  padding:0px 15%;
+  font-weight: 600;
+  @include breakpoint (small down){
+      padding:0px;
+  }
+}
+.p100per h1
+{
+  @include breakpoint (small down){
+      font-size:25px;
+      }
+}
+.mybox {
+    border-radius: 6px;
+    box-shadow: 0px 0px 7px grey;
+	  display: table-cell;
+    width: 50%;
+    height: 300px;
+}
+.mybox ul {
+  	list-style: none;
+  	padding: 0px 30px;
+    margin: 0;
+}
+.mybox li {
+    background: url(../img/100perce.png) no-repeat 0px 8px transparent;
+    padding: 8px 0px 25px 40px;
+  	color: $black;
+  	font-weight: $fontWeight-semibold;
+  	font-size: $fontSize-base;
+  	vertical-align: middle;
+}
+.become-student
+{
+  @include breakpoint(mobile down) {  
+    margin-top:30px;
+  }
+}

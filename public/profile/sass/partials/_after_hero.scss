@@ -1,0 +1,26 @@
+.teacher img{
+	width: 33%;
+}
+.work
+{
+	text-align:center;
+}
+.work h1
+{
+	margin-bottom:20px;
+}
+.space {
+	margin-top:36px;
+	font-size: $fontSize-small;
+    font-weight: $fontWeight-semibold;
+}
+.space2 {
+	font-size: $fontSize-small;
+    font-weight: $fontWeight-semibold;
+}
+.work .col-sm-4
+{
+	@include breakpoint (small down){
+	margin:20px 0px 0px;
+	}
+}

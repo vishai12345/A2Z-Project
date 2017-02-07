@@ -1,0 +1,806 @@
+.regcont {
+    max-width:500px;
+    width: 100%;
+    margin:0px auto;
+    padding: 0px 15px;
+}
+
+.form-container {
+    border: 3px solid #f1f1f1;  
+    max-width:500px;
+    padding:20px 15px;
+    margin: 20px auto;
+    width: 100%;
+}
+.imgy {
+    border: 0;
+    width: 16%;
+    padding-bottom: 15px;
+}
+#login-form {
+width:100%;
+height:100%;
+opacity:1;
+top:0;
+left:0;
+display:none;
+position:fixed;
+background-color:rgba(0, 0, 0, 0.66);
+overflow:auto;
+z-index:1;
+}
+#signup-form {
+width:100%;
+height:100%;
+opacity:1;
+top:0;
+left:0;
+display:none;
+position:fixed;
+background-color:rgba(0, 0, 0, 0.66);
+overflow:auto;
+z-index:1;
+}
+#request-form {
+width:100%;
+height:100%;
+opacity:1;
+top:0;
+left:0;
+display:none;
+position:fixed;
+background-color:rgba(0, 0, 0, 0.66);
+overflow:auto;
+z-index:1;
+}
+.form-index form {
+border: 3px solid #f1f1f1;
+max-width: 500px;
+padding: 20px 15px;
+min-width:250px;
+border-radius:10px;
+background-color:$white;
+}
+form {
+    font-family:'Hanken' !important;
+}
+
+button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color: white;
+}
+#requestForm label{
+    color: $red;
+}
+.sub-error label{
+    margin-left: -4em;
+}
+.cross-index {
+    z-index: 22;
+}
+.form-index {
+    z-index: 333333 !important;
+}
+.banner-text .form-control.need-help {
+    font-size: 15px;
+    background-repeat: no-repeat;
+    background-position: 9px;
+    margin: 0px;
+    width: 100%;
+    border-radius: 6px 0 0 6px;
+}
+.reset-pwd form{
+    border: 1px solid;
+    box-shadow: 0px 0px 5px red;
+    display: table;
+    margin: 3em auto;
+    padding: 2em;
+    max-width: 500px;
+}
+.reset-button {
+    background: #e24241;
+    padding: 7px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    border: none;
+    cursor: pointer;
+    width: 40%;
+    font-size: 17px;
+}
+.reset-button a:hover {
+    color: #000000 !important;
+}
+.reset-form-padding {
+    padding: 10px 0px;
+    .reset-button a:hover{
+        color:$white !important;
+    }
+}
+.reset-center {
+    text-align: center;
+}
+#bs-example-navbar-collapse-1 ul li button:hover {
+    color: #e24241;
+}
+.request-button {
+    font-size: 17px;
+}
+.reg-form {
+    margin:-10px;
+}
+.reg-button {
+    margin: 12px auto;
+}
+.reg-up {
+    margin-top: 0em;
+}
+.req-text-field {
+    margin: 8px 0px;
+    @media screen and (max-width:480px){
+    padding: 0px 2px 0px 0px;
+    }
+}
+.submit-botton {
+    width: 91% !important;
+    font-size: $fontSize-base;
+    padding: 10px 5px !important;
+    margin: 5px 0px !important;
+    @media screen and (max-width:320px){
+        width:45% !important;
+        margin: 5px auto !important;
+    }
+    @media screen and (max-width:992px){
+        width:45% !important;
+        margin: 5px auto !important;
+        font-size: $fontSize-small;
+    }
+    @media screen and (max-width:480px){
+    width: 131% !important;
+    margin: 0px -10px !important;
+    font-size: 12px;
+    }
+}
+.save--button{
+    @media screen and (max-width:480px){
+    width: 80%;
+    margin-left: 10px;
+    }
+}
+.psw a{
+    text-align: center;
+    margin-top: 10px;
+    display: block;
+    text-decoration: none;
+    color: black !important;
+}
+.input {
+    width: 100%;
+    padding: 10px 20px;
+    margin: 0 auto;
+    display: block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    @media screen and (max-width:480px){
+        font-size: 11px;
+        padding: 7px 2px;
+    }
+}
+input.input {
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+.rate--input--sign{
+    float: left;
+    width: 13%;
+    font-size: 20px;
+    padding: 4.5px 20px;
+}
+.rateInput{
+    padding: 5.5px 20px !important;
+}
+.rate--input--number{
+    margin-left: 0px;
+    width: 83%;
+}
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+    @include breakpoint(mobile down){
+
+    }
+}
+.cancelbtn--small{
+    padding-bottom: 22px;
+    button{
+        padding: 9px;
+        width: 21%;
+    }
+}
+.botton {
+    background-color: $red;
+    color: $white;
+    display: block;
+    padding: 14px 20px;
+    margin: 0 auto;
+    border: none;
+    cursor: pointer;
+    width: 60%;
+    &:hover{
+        color:$black;
+    }
+}
+.profile--botton{
+    background-color: #e24241;
+    color: #fff;
+    display: block;
+    padding: 9px;
+    border-radius: 4px;
+    margin: 0 auto;
+    cursor: pointer;
+    width: 40%;
+    border: none;
+    box-shadow: 0px 0px 1px red;
+    &:hover{
+        color:$black;
+    }
+}
+.profile--add--btn{
+    border: 1px solid #000;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0px 0px 3px #000;
+    color: black;
+    padding: 6px 0px;
+    width: 45%;
+}
+.profile--add--btn--center{
+    text-align: center;
+    margin: 8px;
+}
+.subject-padding {
+    padding: 0px 15px 1em 30px;
+}
+#subjectForm ul{
+    width: 85%;
+    display: flex;
+    overflow: auto;
+    white-space: nowrap;
+    li {
+    display: inline-block;
+    }
+}
+.postcode-padding {
+    padding: 0px 30px 0px 15px;
+}
+.form-padding {
+    padding-bottom: 1em;
+    textarea {
+        height: 135px;
+    }
+}
+.cross-popup {
+    float: right;
+}
+.logtext {
+    text-align: center;
+    font-size: $fontSize-xmlarger;
+}
+.centbtn {
+    display: block;
+    text-align: center;
+}
+.form--header--bgcolor{
+    background-color: $black;
+}
+.form--header--bgcolor ul li a {
+    color: $white !important;
+}
+.header--dropdown__color{
+    color: $white;
+    background-color:$black;
+}
+.header--dropdown__color a:focus {
+    color: $white !important;
+    background-color:$black !important;
+}
+.profile-dropdown {
+    background-color:$black !important;
+    li {
+        a{
+            &:hover {
+                background-color:$black !important;
+                color:$red !important;
+            }
+        }
+    }
+}
+.profile--progressMenu {
+    @media screen and (max-width:992px){
+        width:40%;
+    }
+    @media screen and (max-width:768px){
+        width: 100%;
+    }
+}
+.profile--float {
+    float: right;
+}
+#tagForm label, #bioForm label, #travelForm label{
+    color:$red;
+}
+.profile--tagline {
+    padding: 25px 0px;
+    @media screen and (max-width:480px){
+        float: none;
+    }
+    @media screen and (min-width:767px) and (max-width:991px){
+        width:90%;
+        margin-left: 32px;
+    }
+    @media screen and (max-width:768px){
+        margin-left: 32px;
+    }
+    img {
+        margin:0px 5px 4px 5px;
+    }
+    h2{
+    @media screen and (max-width:480px){
+        font-size: 18px;
+    }
+    }
+}
+.profile--borderLine{
+    border-bottom:1px solid $gray;
+}
+.profile--borderLineVerti{
+    padding: 25px 0px 6px 0px;
+    border: 1px solid $white;
+    border-right-color: $black;
+    @include breakpoint(mobile down) {
+        border-right-color: $white;
+    }
+    input { max-width: 73%; font-weight:$fontWeight-bold; border:none;}
+    input:focus{outline:none;}
+    h3 { float: left;}
+    p { clear:both;}
+    button{ color: $black;}
+}
+.profile--milesPadding {
+    padding: 25px 0px 25px 50px;
+    @media screen and (min-width:280px) and (max-width:991px){
+        padding:0px;
+    }
+}
+.profile--button {
+    border:1px solid;
+    border-radius:15px;
+    background-color:$red;
+    color:$white;
+    margin: 23px 0px;
+    padding:7px 23px;
+    text-align: center;
+    font-size: $fontSize-largeLess;
+    &:hover {
+        color:$black;
+    }
+    @media screen and (max-width:480px){
+        font-size: 12px;
+    }
+}
+.profile--subHeading{
+    font-size: $fontSize-largeLess;
+    font-weight: $fontWeight-bold;
+    color: $gray;
+    @media screen and (max-width:480px){
+        font-size: 14px;
+    }
+}
+.profile--progressBar{
+    width: 65%;
+    height: 12px;
+    border: 1px solid $gray;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    @media screen and (max-width:480px){
+        width:95%;
+    }
+}
+.nav--header li a {
+    font-size: $fontSize-base;
+    font-weight: $fontWeight-bold;
+}
+.profile--list {
+    list-style: none;
+    margin-left: 0px;
+    font-size: $fontSize-base;
+    font-weight: $fontWeight-semibold;
+    color: $gray;
+    li{
+        margin: 3px 0px;
+    }
+    @media screen and (max-width:480px)
+        {
+            font-size: 12px;
+            font-weight: 200;
+        }
+}
+.profile--para{
+    list-style: none;
+    margin: 0px;
+    font-size: $fontSize-base;
+    font-weight: $fontWeight-semibold;
+    color: $black;
+    @media screen and (max-width:480px){
+        padding:0px;
+    }
+    h4{
+    @media screen and (max-width:480px){
+        font-size: 15px;
+    }
+    }
+    p{
+        @media screen and (max-width:480px){
+        font-size: 11px;
+    }  
+    }
+    label{
+        @media screen and (max-width:480px){
+            font-size: 11px;
+            display: inline;
+        }
+    }
+}
+
+.profile--edit{
+    color: $blue !important;
+    cursor: pointer;
+}
+.tuition--edit{
+    color: $blue !important;
+    cursor: pointer;
+    position: relative;
+    top: -3px;
+}
+.profile--box--edit {
+    position: relative;
+    top: 5px;
+    margin-left: 3em;
+    @include breakpoint(mobile down) {
+        margin-left: 0px;
+    }
+}
+.profile--edit--margin {
+    margin-bottom: 10px;
+}
+.identifictaion--box{
+    border: 1px solid $red;
+    box-shadow: 0px 0px 4px $red;
+    padding: 13px;
+    margin: 9px 0px;
+    &:hover {
+        cursor:pointer;
+        border:1px solid $black;
+    }
+    @media screen and (min-width:320px) and (max-width:480px){
+        margin: 9px 0px;
+        padding: 3px 0px;
+        font-size: 12px;
+    }
+    h3{
+    @media screen and (max-width:480px){
+        font-size: 15px;
+        font-weight: 600;
+    }
+    }
+}
+.tuitionFees--Table{
+    border: 1px solid $red;
+    box-shadow: 0px 0px 4px $red;
+    padding: 8px;
+    &:hover {
+        cursor:pointer;
+        border:1px solid $black;
+    }
+    @media screen and (min-width:320px) and (max-width:480px){
+        padding: 3px 0px;
+        font-size: 12px;
+    }
+    input{
+        width:65%;
+    }
+    p{
+        margin:0px;
+    }
+    h3{
+        margin:0px;
+        font-size: 19px;
+        padding: 10px 0px;
+        font-weight: 700;
+    @media screen and (max-width:480px){
+        font-size: 15px;
+        font-weight: 600;
+    }
+    }
+}
+.profile--subject{
+    border: 1px solid $red;
+    box-shadow: 0px 0px 4px $red;
+    padding: 13px;
+    margin: 9px 0px;
+    width: 88%;
+    &:hover {
+        cursor:pointer;
+        border:1px solid $black;
+    }
+    @media screen and (min-width:320px) and (max-width:480px){
+        margin: 9px 0px;
+        padding: 3px 0px;
+        font-size: 12px;
+    }
+    h3{
+    @media screen and (max-width:480px){
+        font-size: 15px;
+        font-weight: 600;
+    }
+    }
+}
+.profile--para h4:first-child{
+    margin-left: 0px;
+}
+.profile--para h4{
+    margin-left: 16px;
+}
+.profile--accountHead--padding{
+    padding:3em 0px;
+}
+
+.account--tablist{
+    margin: 0px;
+    padding:0px;
+    & li a {
+    background-color: $red;
+    font-size: $fontSize-largeLess;
+    padding:5px 36px !important;
+    &:hover {
+        background-color: $red;
+        color:$white;
+    }
+    @media screen and (min-width: 1441px){
+    font-size: 16px;
+    padding: 5px 100px;
+    }
+    @media screen and (max-width: 1440px){
+    font-size: 16px;
+    padding: 5px 100px;
+    }
+    @media screen and (max-width: 1200px){
+    font-size: 16px;
+    padding: 5px 75px;
+    }
+    @media screen and (max-width: 992px){
+    font-size: 16px;
+    padding: 5px 47px;
+    }
+    @media screen and (max-width: 768px){
+    font-size: 16px;
+    padding: 5px 14px;
+    }
+    @media screen and (max-width: 480px){
+    font-size: 12px;
+    padding: 3px 4px;
+    }
+    @media screen and (max-width: 320px){
+    font-size: 12px;
+    padding: 3px 4px;
+    }
+    }
+}
+.upload--button {
+    border: 1px solid;
+    padding: 18px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 0px 2px;
+    margin: 8px;
+    @media screen and (max-width: 480px){
+        padding:2px;
+    }
+}
+.lost--pwd h1{
+    color: $white;
+    margin: 10px 50px;
+}
+.lost--pwd button {
+    margin: 8px 0px !important;
+    width: 70% !important;
+    &:hover{
+        color:$black;
+    }
+}
+#personal_form label {
+    color:$red !important;
+}
+.login--form--button {
+    margin: 12px auto;
+}
+#loginForm label {
+    color:$red !important;
+}
+#signupForm label {
+    color:$red;
+}
+#identification_form{
+    label {
+    color:$red;
+    }  
+    li {
+    font-size: 12px;
+    margin-left: -40px;
+    }
+}   
+#payment_form label {
+    color:$red;
+}
+#signupForm p {
+    margin: 11px 0px 0px 0px;
+}
+#loginForm p {
+    margin: 11px 0px 0px 0px;
+}
+.reg--button{
+    font-size: 19px;
+    padding: 1em 4em;
+}
+.form--signup{
+    width: 25%;
+}
+.form--request{
+    width: 19%;
+}
+.close{
+    opacity: 1;
+        &:hover {
+            opacity: 1 !important;
+        }
+}
+.tagline--padding{
+    padding: 2px 5em;
+}
+.tagline--padding--input{
+    padding: 2px 5em 2px 0px;
+}
+.tagline--button{
+    width:30%;
+}
+#ck-button{
+    margin-top: -2em;
+    label span {
+    text-align: center;
+    padding: 4px 12px;
+    display: block;
+    margin: 1px;
+    background-color:$skyblue;
+    border-radius: 5px;
+    }
+}
+#ck-button label input {
+    visibility: hidden;
+}
+#ck-button input:checked + span {
+    background-color:$red;
+    color:$white;
+}
+.profile--checkbox{
+    display: inline-flex;
+}
+.rate--margin {
+    margin: -31px 16px !important;
+    width: 94%;
+}
+.rate--form--para {
+    margin-top: 10px;
+}
+.rate--pound--textbox{
+   div{ 
+    width: 99%;
+    padding: 9px 0px 30px 0px;} 
+    span{    font-size: 20px;
+    padding: 0px;
+    margin: 12px;}
+    input{ border: 1px solid #aeaeae;
+    font-size: 18px;
+    padding: 4px 39px;
+    margin: -31px 0px;}
+    input:focus{outline:none;}
+}
+#rateForm label{
+    color:$red;
+}
+.round--image{
+    margin-top: 12px;
+    div{
+    overflow:hidden;
+    -moz-border-radius: 10px; 
+    -webkit-border-radius: 10px;
+    border-radius: 55%;
+    border:0px solid;
+    display:inline-block;
+    }
+    img {
+    vertical-align:bottom; 
+    position:relative;
+    z-index:-1;
+    }
+}
+.round--image2 img{
+    vertical-align:bottom; 
+    position:relative;
+    z-index:0;
+    border-radius: 55%;
+    margin-left: 15px;
+}
+.inputWrapper {
+    width: 62%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    color: $black;
+    margin-left: 4px;
+}
+.fileInputImage {
+    cursor: pointer;
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    border-radius: 55%;
+    opacity: 0;
+}
+.fileInput {
+    cursor: pointer;
+    height: 100%;
+    position:absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    /*This makes the button huge. If you want a bigger button, increase the font size*/
+    font-size:50px;
+    /*Opacity settings for all browsers*/
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}
+
+.mynav > li > a {
+    position: relative;
+    display: block;
+    padding: 6px 1px;
+    background: $skyblue;
+}
+.mynav > li > a:hover, .mynav > li > a:focus {
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    background-color: $red;
+}
+.mynav-tabs > li.active > a, .mynav-tabs > li.active > a:hover, .mynav-tabs > li.active > a:focus{
+    color: white;
+    font-weight: 700;
+    background-color: $red;
+}
+.mynav-item a{
+    padding: 7px 22px;
+}
+.mynav-tabs > li {
+    float: left;
+    margin-bottom: 1px;
+}
