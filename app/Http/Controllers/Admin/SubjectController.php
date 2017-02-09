@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Subject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class SubjectController extends Controller {
 
@@ -13,16 +14,26 @@ class SubjectController extends Controller {
         $this->middleware('auth');
     }
 	
-	
 	public function index(){
 		
-		return view('admin/subject');
+		$role = Auth::user()->role;
+		
+		if($role == 'admin'){
+			return view('admin/subject');
+		}else{return redirect('/');}
+			
 	}
 	
 	public function indexSub() {
-        //$data['lawyers'] = Lawyer::all();
-        $data['subjects'] = Subject::paginate(15);
+		
+		$role = Auth::user()->role;
+		
+		if($role == 'admin'){
+			 $data['subjects'] = Subject::paginate(15);
         return view('admin/subjects', $data);
+		}else{
+       return redirect('/');
+		}
     }
 	
 	public function getSubject($id){

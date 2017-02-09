@@ -1,0 +1,25 @@
+<script>
+$(document).ready(function(){
+    $("form#personal_form").on("submit", function(event){
+		event.preventDefault();
+		$('.error-msg-login strong').html('');
+		var formData = $( this ).serialize();
+		console.log(formData);
+	
+	  	$.ajax({
+        url: 'http://localhost/tutor_project/personalInfo',
+        dataType: 'json',
+        data: formData,
+        type: 'POST',
+		contentType: false,
+		processData: false,
+        success: function (data) {
+		//$(document).ready(function(){
+		//$("#dp").attr('src',data);
+		//$("#dp2").attr('src',data);
+		//});
+        }
+    });
+    });
+});
+</script>

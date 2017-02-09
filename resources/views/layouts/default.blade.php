@@ -17,6 +17,7 @@
 <link href="{{ URL::asset('public/css/font-awesome.min.css') }}?version=1-1" rel="stylesheet" type="text/css" />
 <link href="{{ URL::asset('public/css/jquery.flexdatalist.css') }}?version=1-1" rel="stylesheet" type="text/css" />
 
+
 <script type="text/javascript" src="{{ URL::asset('public/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('public/js/bootstrap.min.js') }}?version=1-1"></script>
 <script type="text/javascript" src="{{ URL::asset('public/js/scripts.js') }}?version=1-1"></script>

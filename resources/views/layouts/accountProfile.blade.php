@@ -80,7 +80,8 @@
 </div>
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
   <div class="modal-dialog" role="document">
-  <form name="bioForm" id="bioForm">
+  <form name="bioForm" id="bioForm" role="form">
+  {{ csrf_field() }}
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="{{ URL::asset('public/img/cancel.png') }}"></span></button>
@@ -92,10 +93,14 @@
                   <p><b>Write a professional personal statement, which sets out your experience and teaching style. This is your opportunity to sell yourself to potential clients.</b></p>
                </div>
                <div class="col-md-12 tagline--padding">
-                  <textarea type="textarea" style="height: 150px;width: 100%;" class="input" placeholder="Bio" name="bio" id="bio" required></textarea>
+				@if(isset($bio))
+				   @foreach($bio as $bios)
+                  <textarea type="textarea" style="height: 150px;width: 100%;" class="input" placeholder="Bio" name="bio" id="bio" required>{{$bios['bio']}}</textarea>
+				  @endforeach
+			    @endif
                </div>              
                <div class="col-md-6 login--form--button">
-                  <input class="profile--botton" type="submit" value="Save"/>
+                  <input class="profile--botton" type="submit" value="Save" data-dismiss="modal"/>
                </div>
                <div class="col-md-6 login--form--button">
                   <button class="profile--botton" type="button" data-dismiss="modal" class="cancelbtn">Cancel</button>
@@ -2016,11 +2021,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav nav--header">
-       <li><a href="profile.html">Profile</a></li>
-       <li><a href="Profile-Account.html">Account</a></li>
+        <li><a href='http://localhost/tutor_project/userprofile'>Profile</a></li>
+       <li><a href='http://localhost/tutor_project/accprofile'>Account</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right nav--header">
-      <li><img src="{{ URL::asset('public/img/user.svg') }}" width="30px" height="30px" alt="User"></li>
+					<li class="round--image2">
+					<a href="#"><img id="dp2" src="{{ ((isset($user['image_url'])? URL::asset('public/images/'.$user['image_url']): URL::asset('public/img/user.svg')))  }}" width="30px" height="30px" alt="User"></a>
+					</li>
+					
       <li class="dropdown header--dropdown__color">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Name <span class="caret"></span></a>
           <ul class="dropdown-menu profile-dropdown">
@@ -2049,43 +2057,50 @@
             <div class="col-md-12 profile--borderLine"></div>
             <div class="col-md-8 profile--tagline profile--float">
                 <h2>Personal Details</h2>
-                <form name="personal_form" id="personal_form">
+                <form name="personal_form" id="personal_form" role="form">
+				{{ csrf_field() }}
                     <div class="row profile--para">                    
                         <h4>Change Password</h4>
                         <p>To change the current user password, enter the new password in both fields.</p>             
                         <div class="col-md-6 req-text-field">
-                          <input type="text" class="input" placeholder="Enter your new Password *" name="p_password" id="p_password" required>
+                          <input type="text" class="input" placeholder="Enter your new Password *" name="p_password" id="p_password" >
+						  
                        </div>
                        <div class="col-md-6 req-text-field">
-                          <input type="text" class="input" placeholder="Confirm the Password *" name="p_con_pwd" id="p_con_pwd" required>
+                          <input type="text" class="input" placeholder="Confirm the Password *" name="p_con_pwd" id="p_con_pwd" >
                        </div>
                        <h4>Name</h4>
                        <div class="col-md-6 req-text-field form-padding">
-                          <input type="text" class="input" placeholder="First Name *" name="p_fname" id="p_fname" required>
+                          <input type="text" class="input" placeholder="First Name *" name="p_fname" id="p_fname" value="{{$user['firstname']}}"required>
                        </div>
                        <div class="col-md-6 req-text-field form-padding">
-                          <input type="text" class="input" placeholder="Last Name *" name="p_lname" id="p_lname" required>
+                          <input type="text" class="input" placeholder="Last Name *" name="p_lname" id="p_lname" value="{{$user['lastname']}}" required>
                        </div>
                        <h4>Contact</h4>
                        <div class="col-md-6 req-text-field form-padding">
-                          <input type="text" class="input" placeholder="Email *" name="p_email" id="p_email" required>
+                          <input type="text" class="input" placeholder="Email *" name="p_email" id="p_email" value="{{$user['email']}}"required>
                        </div>
                        <div class="col-md-6 req-text-field form-padding">
-                          <input type="text" class="input" placeholder="Mobile Number *" name="p_mobile" id="p_mobile" required>
+                          <input type="text" class="input" placeholder="Mobile Number *" name="p_mobile" id="p_mobile" value="{{$user['mobile']}}" required>
                        </div>
                        <h4>Address</h4>
+					   @if(isset($data))
+						   @foreach($data as $datas)
                        <div class="col-md-12 req-text-field form-padding">
-                          <input type="text" class="input" placeholder="Street" name="street" id="street">
+                          <input type="text" class="input" placeholder="Street" name="street" id="street" value="{{$datas['street']}}">
                        </div>
                        <div class="col-md-12 req-text-field form-padding">
-                          <input type="text" class="input" placeholder="Town" name="town" id="town">
+                          <input type="text" class="input" placeholder="Town" name="town" id="town" value="{{$datas['city']}}">
                        </div>
                        <div class="col-md-12 req-text-field form-padding">
-                          <input type="text" class="input" placeholder="Country" name="country" id="country">
+                          <input type="text" class="input" placeholder="Country" name="country" id="country" value="{{$datas['country']}}">
                        </div>
                        <div class="col-md-12 req-text-field form-padding">
-                          <input type="text" class="input" placeholder="Postcode" name="postcode" id="postcode">
+                          <input type="text" class="input" placeholder="Postcode" name="postcode" id="postcode" value="{{$datas['postcode']}}">
                        </div>
+					   @endforeach
+					   @endif
+					   
                        <div class="row">
                           <div class="col-md-4 col-md-offset-4 save--button">
                             <button class="profile--botton submit-botton" type="submit">Save</button>
@@ -2104,11 +2119,24 @@
                 </div>
                 <div class="col-md-12">
                     <ul class="profile--list">
-                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
+                    @if(isset($bio))
+					@foreach($bio as $bios)
+					@if($bios['tagline'] == "")
+					<li><button type="button" id="tagline" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
+			
+					@else
+					<li><button type="button" id="tagline" style="color: black;" data-toggle="modal" data-target="#myModal" disabled>Set a tagline</button></li>
+					@endif
+					@endforeach
+					@endif
                     <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal2">Set your rate.</button></li>
                     <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal3">Write a bio.</button></li>
                     <li><div class="inputWrapper">
-                    <input type='file' class="fileInput" onchange="readURL(this);" />Upload a profile picture. </div></li>
+                    <form id="upload_form" enctype="multipart/form-data">
+					{!! csrf_field() !!}
+					<input type='file' class="fileInput"  id = "inTag" name="file" />Upload a profile picture. 
+					</form> 
+					</div></li>
                     <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal4">Add your subject.</button></li>
                     <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal6">Set your travel policy.</button></li>
                     <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal7">Upload some identification.</button></li>
@@ -2125,7 +2153,87 @@
 </div>
 
 <!-- footer-->
+<script>
+$(function() {
+    $('#upload_form').on('change', function(){
 
+		var formData = new FormData($('#upload_form')[0]);
+		formData.append('file', $('input[type=file]')[0].files[0]); 
+		
+	  	$.ajax({
+        url: 'http://localhost/tutor_project/imageupload',
+         dataType: 'json',
+        data: formData,
+        type: 'POST',
+		contentType: false,
+		processData: false,
+        success: function (data) {
+		$(document).ready(function(){
+		$("#dp").attr('src',data);
+		$("#dp2").attr('src',data);
+		});
+        }
+    });
+    });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $( "form#personal_form" ).on( "submit", function( event ) {
+    event.preventDefault();
+    $('.error-msg-login strong').html('');
+    var formData = $( this ).serialize();
+    $.post('personalInfo', formData, function(response) {  
+        if(response == 'success'){
+			alert("Data has been Stored Successfully");
+        }else if(response == 'error'){
+            $('.error-msg-login strong').html(response.message);
+        }else{
+          alert('unknown error.');
+        }
+    });
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $( "form#bioForm" ).on( "change", function( event ) {
+    event.preventDefault();
+    $('.error-msg-login strong').html('');
+    var formData = $( this ).serialize();
+		 $.post('tutorbio', formData, function(response) {  
+        if(response == 'success'){
+			
+        }else if(response == 'error'){
+            $('.error-msg-login strong').html(response.message);
+        }else{
+          alert('unknown error.');
+        }
+    });
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $( "form#tagForm" ).on( "submit", function( event ) {
+    event.preventDefault();
+    $('.error-msg-login strong').html('');
+    var formData = $( this ).serialize();
+    $.post('tutortagline', formData, function(response) {  
+        if(response == 'success'){
+			window.location = "{{ url('/userprofile') }}";
+        }else if(response == 'error'){
+            $('.error-msg-login strong').html(response.message);
+        }else{
+          alert('unknown error.');
+        }
+    });
+  });
+});
+</script>
 <a href="#" class="scrollToTop"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 <!-- footer-->
+
 @endsection

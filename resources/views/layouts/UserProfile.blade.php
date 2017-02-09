@@ -4,7 +4,7 @@
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-  <form name="tagForm" id="tagForm">
+  <form name="tagForm" id="tagForm" role="form">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">
@@ -17,10 +17,15 @@
                   <p><b>A short, snappy summary to promote yourself e.g. "Enthusiastic GCSE Maths & English Tutor"</b></p>
                </div>
                <div class="col-md-12 tagline--padding">
-                  <input type="text" class="input" placeholder="Tagline" name="tagline" id="tagline" required>
+			   @if(isset($data))
+					@foreach($data as $datas)
+                  <input type="text" class="input" placeholder="Tagline" name="tagline" id="tagline" value="{{$datas['tagline']}}">
+				  @endforeach
+				  @endif
+				   {!! csrf_field() !!}
                </div>              
                <div class="col-md-6 login--form--button">
-                  <input class="profile--botton" type="submit" value="Save"/>
+                  <input class="profile--botton" type="submit" value="Save" />
                </div>
                <div class="col-md-6 login--form--button">
                   <button class="profile--botton" type="button"  data-dismiss="modal" class="cancelbtn">Cancel</button>
@@ -90,7 +95,11 @@
                   <p><b>Write a professional personal statement, which sets out your experience and teaching style. This is your opportunity to sell yourself to potential clients.</b></p>
                </div>
                <div class="col-md-12 tagline--padding">
-                  <textarea type="textarea" style="height: 150px;width: 100%;" class="input" placeholder="Bio" name="bio" id="bio" required></textarea>
+			   @if(isset($data))
+				   @foreach($data as $datas)
+                  <textarea type="textarea" style="height: 150px;width: 100%;" class="input" placeholder="Bio" name="bio" id="bio" required>{{$datas['bio']}}</textarea>
+				  @endforeach
+				  @endif
                </div>              
                <div class="col-md-6 login--form--button">
                   <input class="profile--botton" type="submit" value="Save"/>
@@ -2015,11 +2024,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav nav--header">
-       <li><a href="profile.html">Profile</a></li>
-       <li><a href="Profile-Account.html">Account</a></li>
+       <li><a href='http://localhost/tutor_project/userprofile'>Profile</a></li>
+       <li><a href='http://localhost/tutor_project/accprofile'>Account</a></li>
       </ul>
+	  
       <ul class="nav navbar-nav navbar-right nav--header">
-      <li class="round--image2"><img id="dp2" src="{{ URL::asset('public/img/user.svg') }}" width="30px" height="30px" alt="User"></li>
+				<li class="round--image2">
+				<a href="#"><img id="dp2" src="{{ ((isset($user['image_url'])? URL::asset('public/images/'.$user['image_url']): URL::asset('public/img/user.svg')))  }}" width="30px" height="30px" alt="User"></a>
+				</li>
       <li class="dropdown header--dropdown__color">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Name <span class="caret"></span></a>
           <ul class="dropdown-menu profile-dropdown">
@@ -2039,15 +2051,25 @@
 <div class="container">
 <div class="row">
     <div class="col-sm-12 profile--tagline text-center">
-        <h3> Click here to set your tagline <button type="button" style="color: black;" data-toggle="modal" data-target="#myModal"><a href="#" class="profile--edit"><img src="{{ URL::asset('public/img/logo.svg') }}" width="20px">Edit</a></button>
-        </h3> 
+	@if(isset($data))
+		@foreach($data as $datas)
+		@if($datas['tagline'] == "")
+			<span  id="tags" class="lead"> Click here to set your tagline </span>
+		@else
+		  <span class="lead">{{$datas['tagline']}}</span>
+		@endif
+		@endforeach
+		@endif
+		<span class="lead"><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal"><a href="#" class="profile--edit"><img src="{{ URL::asset('public/img/logo.svg') }}" width="20px">Edit</a></button></span>
     </div>
     <div class="col-md-12 profile--borderLine"></div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="round--image"><div>
-        <img style="width:100px;height:100px" id="imgTag" src=" " />
-        <img id="dp" src="{{ URL::asset('public/img/user.svg') }}" width="150px" height="150px" alt="Profile Image"/>
-        </div></div>
+		
+		<img id="dp" src="{{ ((isset($user['image_url'])? URL::asset('public/images/'.$user['image_url']): URL::asset('public/img/user.svg')))  }}" width="150px" height="150px" alt="Profile Image">
+		
+        </div>
+		</div>
         <div class="col-md-12">
             <button class="profile--button">Go Live</button>
         </div>
@@ -2057,12 +2079,22 @@
         </div>
         <div class="col-md-12">
             <ul class="profile--list">
-            <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
+			@if(isset($data))
+				@foreach($data as $datas)
+					@if($datas['tagline'] == "")
+            <li><button type="button" id="tagline" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
+			
+			@else
+				<li><button type="button" id="tagline" style="color: black;" data-toggle="modal" data-target="#myModal" disabled>Set a tagline</button></li>
+			@endif
+			@endforeach
+			@endif
             <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal2">Set your rate.</button></li>
             <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal3">Write a bio.</button></li>
             <li><div class="inputWrapper">
-			<form id="upload_form">
-            <input type='file' class="fileInput"  id = "inTag" name="image"/>Upload a profile picture. 
+			<form id="upload_form" enctype="multipart/form-data">
+			{!! csrf_field() !!}
+            <input type='file' class="fileInput"  id = "inTag" name="file" />Upload a profile picture. 
 			</form>
 			</div></li>
             <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal4">Add your subject.</button></li>
@@ -2071,8 +2103,8 @@
             <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal8">Edit Tuition Fees</button></li>
         </div>
     </div>
-    <div class="col-md-4 profile--tagline">
-            <h3>User Name<button type="button" style="color: black;" data-toggle="modal" data-target="#myModal3"><a href="#" class="profile--edit"><img src="{{ URL::asset('public/img/logo.svg') }}" width="20px">Edit</a></button>
+    <div class="col-md-5 profile--tagline">
+            <h3>{{$user->name}}<button type="button" style="color: black;" data-toggle="modal" data-target="#myModal3"><a href="#" class="profile--edit"><img src="{{ URL::asset('public/img/logo.svg') }}" width="20px">Edit</a></button>
              </h3>
             <div class="col-md-12">
                     <button class="profile--button">Record a Video</button>
@@ -2109,38 +2141,67 @@
     </div>
   </div>
 </div>
+<img id="result" src="">
 <a href="#" class="scrollToTop"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 
 <script>
 $(function() {
-    $('#inTag').on('change', function(){
-        
-      // get file and pull attributes
-	   var input = $(this)[0];
-      var file = input.files[0];
-	  console.log(input.files[0].mozFullPath);
-	   var x = document.getElementById("inTag").value.replace(/C:\\fakepath\\/i, '');
+    $('#upload_form').on('change', function(){
+		var result;
+		var formData = new FormData($('#upload_form')[0]);
+		formData.append('file', $('input[type=file]')[0].files[0]); 
 		
 	  	$.ajax({
         url: 'http://localhost/tutor_project/imageupload',
          dataType: 'json',
-        data: { name : file.name ,x:x},
-        type: 'GET',
-        cache: false,
-        success: function (result) {
-        return result;
+        data: formData,
+        type: 'POST',
+		contentType: false,
+		processData: false,
+        success: function (data) {
+		$(document).ready(function(){
+		$("#dp").attr('src',data);
+		$("#dp2").attr('src',data);
+		});
         }
     });
-        
-     
-     // load file into preview pane
-     var reader = new FileReader();
-     reader.onload = function(e){
-       $('#imgTag').attr('src', e.target.result);
-     }
-     reader.readAsDataURL(file);
-        
     });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $( "form#tagForm" ).on( "submit", function( event ) {
+    event.preventDefault();
+    $('.error-msg-login strong').html('');
+    var formData = $( this ).serialize();
+    $.post('tutortagline', formData, function(response) {  
+        if(response == 'success'){
+			window.location = "{{ url('/userprofile') }}";
+        }else if(response == 'error'){
+            $('.error-msg-login strong').html(response.message);
+        }else{
+          alert('unknown error.');
+        }
+    });
+  });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $( "form#bioForm" ).on( "change", function( event ) {
+    event.preventDefault();
+    $('.error-msg-login strong').html('');
+    var formData = $( this ).serialize();
+		 $.post('tutorbio', formData, function(response) {  
+        if(response == 'success'){
+			
+        }else if(response == 'error'){
+            $('.error-msg-login strong').html(response.message);
+        }else{
+          alert('unknown error.');
+        }
+    });
+  });
 });
 </script>
 @endsection

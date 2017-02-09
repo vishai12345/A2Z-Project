@@ -1,14 +1,4 @@
-$(document).ready(function() {
-             // validate signup form on keyup and submit
-             $("#tagForm").validate({
-                 rules: {
-                     tagline: "required",
-                     }, 
-                 messages: {
-                     tagline: "Please provide Tagline",               
-                 },
-            });
-        });
+
         
          $(document).ready(function() {
              // validate signup form on keyup and submit

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon ;
 use Illuminate\Support\Facades\Input;
+use Response;
+use Illuminate\Support\Facades\Auth;
+use App\TutorProfile;
 
 class ImageController extends Controller
 {
@@ -15,46 +18,42 @@ class ImageController extends Controller
     public function __construct(Request $requests) {
         $this->request = $requests;
     }
-    	public function upload(){
-		// Redirect to image upload form
-		 return view('imageupload');
-   	}
-
+	
 	/**
 	 * Store a newly uploaded resource in storage.
 	 *
 	 * @return Response
 	 */
-	public function store(){
+	public function store(Request $request){
 		// Store records process
-		
-			$file = Input::all();
-			$imagName = $file['name'];
-			$imageName = $file['x'];
+
+			$destinationPath = public_path().'\images\\';
+			$file = $request->file('file');
+			$fileName = $file->getClientOriginalName();
+			$timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+            $fileName = $timestamp. '-' .$fileName;
+			if($file->isValid())
+			{
+			 $imagePat = $file->move($destinationPath, $fileName);
+			 $imagePath ='public\images\\'.$fileName;
+			$id = Auth::id();
+			$img = User::find($id);
+			$img->image_url = $fileName;
+			$img->save();
+		    $user = TutorProfile::where('user_id',$id)->get();
+			foreach($user as $users)
+			{
+				$users->profile_picture = $fileName;
+				$users->save();
+			}
+			 
+			}
 			
-		    $timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
-            $name = $timestamp. '-' .$imagName;
-			$path = public_path().'\images\\';
-			dd("img name ".$imageName ." path". $path.$name);
-			dd(move_uploaded_file($imageName , $path.$name));
-			die;
-			//dd($file->move($path, $name));
-            
-		    $user = User::find('129');
-		    $user->image_url = $name;
-			$user->save();
+			
+		    
+			return Response::json($imagePath);
 		
    	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function show(){
-		// Show lists of the images
-		 $images = Image::all();
-		 return  view('showLists',['images'=>$images]);
-    }
 }
 ?>

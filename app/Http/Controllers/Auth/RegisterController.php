@@ -88,6 +88,7 @@ class RegisterController extends Controller
                 'password' => bcrypt($data['password']),
                 'role' => $data['role'],
 				'status'=>$data['status'],
+				'image_url' => '',
 				'verification_code'=> $data['verification_code'],
             ]);
         }else if($data['role'] == 'student'){

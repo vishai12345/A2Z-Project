@@ -22,10 +22,19 @@
     <li><button class="request-button" onclick="show_popup('request-form')">Request a tutor</button></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-  <li><button onClick="show_popup('login-form')">TUTOR LOGIN</button></li>
-    <li class="signup-btn"><button onClick="show_popup('signup-form')">BECOME A TUTOR 
-    </button></li>
-    
+   @if(Auth::user())
+	<li>
+	<a href="{{ url('/logout') }}" class="btn btn-primary btn-sm"
+	onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Log out</a>
+	<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+										</li>
+ 
+	@else
+		 <li><button onClick="show_popup('login-form')">TUTOR LOGIN</button></li>
+    <li class="signup-btn"><button onClick="show_popup('signup-form')">BECOME A TUTOR </button></li>
+	 @endif
   </ul>
 </div><!-- /.navbar-collapse -->
 </nav>

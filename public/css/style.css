@@ -10654,7 +10654,7 @@ input.input {
   margin-left: 15px; }
 
 .inputWrapper {
-  width: 62%;
+  width: 100%;
   height: auto;
   overflow: hidden;
   position: relative;

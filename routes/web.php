@@ -78,7 +78,20 @@ Route::get('/admin/edit-city/{id}', 'Admin\CityController@editCity');
 Route::post('/admin/update-city', 'Admin\CityController@updateCity');
 Route::get('/admin/delete-city/{id}', 'Admin\CityController@deleteCity');
 
-Route::get('/userprofile','UserProfileController@index');
-Route::get('/accprofile','UserProfileController@accProfile');
+/* * ****** City Routing ******* */
+Route::get('/admin/countrys', 'Admin\CountryController@index');
+Route::post('/admin/save-country', 'Admin\CountryController@saveCountry');
+Route::get('/admin/edit-country/{id}', 'Admin\CountryController@editCountry');
+Route::post('/admin/update-country', 'Admin\CountryController@updateCountry');
+Route::get('/admin/delete-country/{id}', 'Admin\CountryController@deleteCountry');
 
-Route::get('/imageupload','ImageController@store');
+Route::get('/userprofile/','TutorProfileController@index');
+Route::get('/accprofile','TutorProfileController@accProfile');
+
+Route::post('/imageupload','ImageController@store');
+Route::get('/showimage','ImageController@getImage');
+Route::get('/showimagehead','ImageController@getImageHead');
+Route::post('/tutortagline','TutorProfileController@tagLine');
+
+Route::post('/personalInfo','TutorProfileController@tutorInfo');
+Route::post('/tutorbio','TutorProfileController@tutorbio');
