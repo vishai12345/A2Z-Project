@@ -24,7 +24,6 @@
 <script type="text/javascript" src="{{ URL::asset('public/js/jquery.flexdatalist.min.js') }}?version=1-1"></script>
 
 <script type="text/javascript" src="{{ URL::asset('public/profile/js/jquery.validate.min.js') }}?version=1-1"></script>
-<script type="text/javascript" src="{{ URL::asset('public/profile/js/profile.js') }}?version=1-1"></script>
 <script type="text/javascript" src="{{ URL::asset('public/profile/js/profileAcc.js') }}?version=1-1"></script>
 </head>
 <body>

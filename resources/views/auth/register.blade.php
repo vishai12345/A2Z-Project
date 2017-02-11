@@ -1,10 +1,10 @@
-<div id="signup-form">
+ <div id="signup-form" class="form-index">
 <form class="form-container" role="form" id="formRegisterTutor">
  {{ csrf_field() }}
 <div class="regcont">
   <div class="row">
       <div class="col-md-12">
-        <a class="cross-popup cross" href="javascript:hide_popup('signup-form');"><img src="{{ URL::asset('public/img/cancel.png') }}"></a>
+        <a class="cross-popup cross" href="javascript:hide_popup('signup-form');changeurl();"><img src="{{ URL::asset('public/img/cancel.png') }}"></a>
       </div>
       <div class="col-md-12 text-center">
         <h2>Want to become a Tutor?</h2>

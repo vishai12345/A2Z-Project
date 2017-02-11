@@ -36,15 +36,21 @@ class TutorProfileController extends Controller
 	public function tagLine(Request $request)
 	{	
 		$id = Auth::id();
-		$data = $request->all();
-		$usertag = TutorProfile::where('user_id',$id)->get();
-		foreach($usertag as $user)
-		{
-			$user['tagline'] = $data['tagline'];
-			$user->save();
+		$data = TutorProfile::where('user_id',$id)->get();
+		$data1 = new TutorProfile;
+		if(count($data)>0){
+			$data1 = $data[0];
 		}
-		$tag  = $data['tagline'];
-		return response::json('success');
+		$data1->user_id = $id;
+		$data1->tagline = $request->tagline;
+		if($data1->save()){
+			return response()->json(['status'=>'success', 'message'=>'Successful.','data'=>$data1], 200);
+		}else{
+			return response()->json(['status'=>'error', 'message'=>'Error.'], 200);
+		}
+		
+	//	$tag  = $data['tagline'];
+		
 		
 	}
 	public function tutorInfo(Request $request)
@@ -54,44 +60,53 @@ class TutorProfileController extends Controller
 		$data = $request->all();
 			$id = Auth::id();
 			$user = User::where('id',$id)->get();
+			$user1 = new User;
 			$add = Address::where('user_id',$id)->get();
-			foreach($add as $adds)
+			$add1 = new Address;
+			if(count($add)>0)
 			{
-				$adds->street = $data['street'];
-				$adds->city = $data['town'];
-				$adds->country = $data['country'];
-				$adds->postcode  = $data['postcode'];
-				$adds->save();
-			}
-			foreach($user as $users)
-			{
-				$users->firstname = $data['p_fname'];
-				$users->lastname = $data['p_lname'];
-				$users->mobile = $data['p_mobile'];
-				$users->save();
-			}
-			return response::json('success');
+			$add1 = $add[0];
+			}	
+				$add1->user_id = $id;
+				$add1->street = $data['street'];
+				$add1->city = $data['town'];
+				$add1->country = $data['country'];
+				$add1->postcode  = $data['postcode'];
+				$add1->remember_token = $data['_token'];
+				$add1->save();
+				
+				if(count($user)>0)
+				{
+				$user1 = $user[0];
+				}	
+				$user1->firstname = $data['p_fname'];
+				$user1->lastname = $data['p_lname'];
+				$user1->mobile = $data['p_mobile'];
+				$user1->save();
+				
+				if($add1->save() && $user1->save())
+				{
+					return response()->json(['status'=>'success', 'message'=>'Successful.','add' => $add1, 'user' => $user1], 200);
+				}else{
+					return response()->json(['status'=>'error', 'message'=>'Error.'], 200);
+					
+				}
 	}
 	public function tutorbio(Request $request)
 	{	
-		$this->validate($request, ['bio' => 'required']);
-		
-		$data  = $request->all();
 		$id = Auth::id();
-		$user = TutorProfile::where('user_id',$id)->get();
-		foreach($user as $users)
-		{
-			$users->bio = $data['bio'];
-			$dd = $users->save();
+		$data = TutorProfile::where('user_id',$id)->get();
+		$data1 = new TutorProfile;
+		if(count($data)>0){
+			$data1 = $data[0];
 		}
-		if($dd)
-		{
-			return response::json('success');
-		}else
-		{
-			return response::json('error');
-		}
-		
+		$data1->user_id = $id;
+		$data1->bio = $request->bio;
+		if($data1->save()){
+			return response()->json(['status'=>'success', 'message'=>'Successful.','data'=>$data1], 200);
+		}else{
+			return response()->json(['status'=>'error', 'message'=>'Error.'], 200);
+		}	
 	}
 }
 

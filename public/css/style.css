@@ -9899,12 +9899,14 @@ input.empty {
 
 .box-ban a {
   text-decoration: none;
-  transition: all 0.3s ease-in-out;
   color: #fff; }
 
-.box-ban a:hover {
-  color: #e24241 !important;
-  display: block; }
+.box-ban:hover {
+  border: 1px solid #e24241;
+  display: block;
+  transition: all 0.2s ease-in-out; }
+  .box-ban:hover a {
+    color: #e24241 !important; }
 
 .col-md-100 {
   display: inline-block;
@@ -10093,7 +10095,7 @@ button {
       padding: 0px 2px 0px 0px; } }
 
 .submit-botton {
-  width: 91% !important;
+  width: 94% !important;
   font-size: 16px;
   padding: 10px 5px !important;
   margin: 5px 0px !important; }
@@ -10211,8 +10213,21 @@ input.input {
   display: flex;
   overflow: auto;
   white-space: nowrap; }
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+    #subjectForm ul {
+      width: 90%;
+      display: flex;
+      overflow: auto;
+      margin-left: 4%;
+      white-space: nowrap; } }
   #subjectForm ul li {
     display: inline-block; }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .tab-content h3 {
+    margin: 4px 0px !important;
+    font-size: 15px !important;
+    font-weight: 400; } }
 
 .postcode-padding {
   padding: 0px 30px 0px 15px; }
@@ -10452,7 +10467,7 @@ input.input {
   border: 1px solid #e24241;
   box-shadow: 0px 0px 4px #e24241;
   padding: 13px;
-  margin: 9px 0px;
+  margin: 23px 0px;
   width: 88%; }
   .profile--subject:hover {
     cursor: pointer;
@@ -10580,6 +10595,9 @@ input.input {
 
 .tagline--padding {
   padding: 2px 5em; }
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+    .tagline--padding {
+      padding: 2px 2em; } }
 
 .tagline--padding--input {
   padding: 2px 5em 2px 0px; }
@@ -10596,6 +10614,13 @@ input.input {
     margin: 1px;
     background-color: #b0e0e6;
     border-radius: 5px; }
+    @media screen and (min-width: 320px) and (max-width: 480px) {
+      #ck-button label span {
+        padding: 2px 3px;
+        font-size: 10px;
+        min-width: 23px;
+        display: block;
+        margin: 1px; } }
 
 #ck-button label input {
   visibility: hidden; }
@@ -10654,7 +10679,7 @@ input.input {
   margin-left: 15px; }
 
 .inputWrapper {
-  width: 100%;
+  width: 62%;
   height: auto;
   overflow: hidden;
   position: relative;
@@ -10689,6 +10714,14 @@ input.input {
   display: block;
   padding: 6px 1px;
   background: #b0e0e6; }
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+    .mynav > li > a {
+      position: relative;
+      display: block;
+      padding: 2px 2px;
+      background: #b0e0e6;
+      font-size: 13px;
+      font-weight: 700; } }
 
 .mynav > li > a:hover, .mynav > li > a:focus {
   text-decoration: none;

@@ -1,10 +1,11 @@
-<div id="login-form">
+
+<div id="login-form" class="form-index">
 <form class="form-container" role="form" id="formLogin">
      {{ csrf_field() }}
 <div class="regcont">
     <div class="row">
         <div class="col-md-12">
-            <a class="cross-popup cross" href="javascript:hide_popup('login-form');"><img src="{{ URL::asset('public/img/cancel.png') }}"></a>
+            <a class="cross-popup cross" href="javascript:hide_popup('login-form');changeurl();"><img src="{{ URL::asset('public/img/cancel.png') }}"></a>
         </div>
         <div class="col-md-12 text-center">
             <h2>Login</h2>

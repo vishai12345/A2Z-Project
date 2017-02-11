@@ -1,5 +1,5 @@
       
-         $().ready(function() {
+         $(document).ready(function() {
              // validate signup form on keyup and submit
              $("#personal_form").validate({
                  rules: {
@@ -32,10 +32,8 @@
                  }
              });
          });
-        
-        
-        
-         $().ready(function() {
+		 
+         $(document).ready(function() {
              // validate signup form on keyup and submit
              $("#rateForm").validate({
                  rules: {
@@ -53,7 +51,7 @@
             });
         });
           
-         $().ready(function() {
+           $(document).ready(function() {
              // validate signup form on keyup and submit
              $("#bioForm").validate({
                  rules: {
@@ -65,7 +63,7 @@
             });
         });
           
-         $().ready(function() {
+         $(document).ready(function() {
              // validate signup form on keyup and submit
              $("#travelForm").validate({
                  rules: {

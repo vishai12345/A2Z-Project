@@ -89,9 +89,16 @@ Route::get('/userprofile/','TutorProfileController@index');
 Route::get('/accprofile','TutorProfileController@accProfile');
 
 Route::post('/imageupload','ImageController@store');
-Route::get('/showimage','ImageController@getImage');
-Route::get('/showimagehead','ImageController@getImageHead');
 Route::post('/tutortagline','TutorProfileController@tagLine');
 
 Route::post('/personalInfo','TutorProfileController@tutorInfo');
 Route::post('/tutorbio','TutorProfileController@tutorbio');
+
+Route::get('/admin/users','Admin\UserController@index');
+Route::get('/admin/edit-user-profile/{id}/{type}', 'Admin\UserController@editUser');
+Route::post('/admin/edit-user-profile', 'Admin\UserController@updateUser');
+Route::get('/admin/delete-user/{id}', 'Admin\UserController@deleteUser');
+
+Route::get('/admin/user-status-deactivate/{user_id}', 'Admin\UserController@statusDeactivate');
+Route::get('/admin/user-status-activate/{user_id}', 'Admin\UserController@statusActivate');
+Route::get('/admin/user-status-verify/{user_id}', 'Admin\UserController@statusActivate');

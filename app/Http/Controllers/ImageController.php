@@ -26,7 +26,6 @@ class ImageController extends Controller
 	 */
 	public function store(Request $request){
 		// Store records process
-
 			$destinationPath = public_path().'\images\\';
 			$file = $request->file('file');
 			$fileName = $file->getClientOriginalName();
@@ -41,19 +40,18 @@ class ImageController extends Controller
 			$img->image_url = $fileName;
 			$img->save();
 		    $user = TutorProfile::where('user_id',$id)->get();
-			foreach($user as $users)
+			$users = new TutorProfile;	 
+			if(count($user)>0)
 			{
-				$users->profile_picture = $fileName;
-				$users->save();
+				$users = $user[0];
+				
 			}
-			 
+			$users->user_id = $id;
+			$users->profile_picture = $fileName;
+			$users->save();
 			}
 			
-			
-		    
 			return Response::json($imagePath);
-		
    	}
-
 }
 ?>

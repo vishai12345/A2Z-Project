@@ -19,7 +19,7 @@
 <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
-    <li><button class="request-button" onclick="show_popup('request-form')">Request a tutor</button></li>
+    <li><button class="request-button" onclick="show_popup('request-form');changeurlTutor();">Request a tutor</button></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
    @if(Auth::user())
@@ -32,8 +32,8 @@
 										</li>
  
 	@else
-		 <li><button onClick="show_popup('login-form')">TUTOR LOGIN</button></li>
-    <li class="signup-btn"><button onClick="show_popup('signup-form')">BECOME A TUTOR </button></li>
+		 <li><button onClick="show_popup('login-form');changeurlLogin();">TUTOR LOGIN</button></li>
+    <li class="signup-btn"><button onClick="show_popup('signup-form'); changeurlRegister();">BECOME A TUTOR </button></li>
 	 @endif
   </ul>
 </div><!-- /.navbar-collapse -->

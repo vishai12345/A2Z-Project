@@ -27,9 +27,69 @@ $('#iconified').on('keyup', function() {
 
 //Function To Display Popup
 function show_popup(id) {
-document.getElementById(id).style.display = "block";
+ document.getElementById(id).style.display = "block";
 }
+
+//Change Url
+function changeurlRegister()
+{
+
+var new_url="/A2Z-Project/register";
+ window.history.pushState("data","Title",new_url);
+ document.title="A2Z Tutors-Register";
+}
+function changeurlLogin()
+{
+
+var new_url="/A2Z-Project/login";
+ window.history.pushState("data","Title",new_url);
+ document.title="A2Z Tutors-Login";
+}
+function changeurlTutor()
+{
+
+var new_url="/A2Z-Project/requestTutor";
+ window.history.pushState("data","Title",new_url);
+ document.title="A2Z Tutors-Request Tutor";
+}
+function changeurl()
+{
+
+var new_url="/A2Z-Project/";
+ window.history.pushState("data","Title",new_url);
+ document.title="A2Z Tutors";
+}
+//End
+
 //Function to Hide Popup
 function hide_popup(id){
 document.getElementById(id).style.display = "none";
+$('body').css('overflow', 'hide');
 }
+
+//Tab 
+  $(function () {
+    $('#myTab active').tab('show');
+    $('#myTab active').css('background-color', '#e24241');
+  })
+
+// Upload Image
+     function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#dp')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(150);
+
+                         $('#dp2')
+                        .attr('src', e.target.result)
+                        .width(30)
+                        .height(30);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }

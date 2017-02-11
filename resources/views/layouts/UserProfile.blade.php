@@ -5,6 +5,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
   <form name="tagForm" id="tagForm" role="form">
+   {!! csrf_field() !!}
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">
@@ -15,14 +16,17 @@
         <div class="row">
                <div class="col-md-12 tagline--padding">
                   <p><b>A short, snappy summary to promote yourself e.g. "Enthusiastic GCSE Maths & English Tutor"</b></p>
-               </div>
+               </div> 
                <div class="col-md-12 tagline--padding">
-			   @if(isset($data))
+			   @if(count($data)>0)
 					@foreach($data as $datas)
                   <input type="text" class="input" placeholder="Tagline" name="tagline" id="tagline" value="{{$datas['tagline']}}">
 				  @endforeach
+				  @else
+					  <input type="text" class="input" placeholder="Tagline" name="tagline" id="tagline" value="">
 				  @endif
-				   {!! csrf_field() !!}
+				  
+				  
                </div>              
                <div class="col-md-6 login--form--button">
                   <input class="profile--botton" type="submit" value="Save" />
@@ -83,6 +87,7 @@
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
   <div class="modal-dialog" role="document">
   <form name="bioForm" id="bioForm">
+  {!! csrf_field() !!}
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">
@@ -95,10 +100,16 @@
                   <p><b>Write a professional personal statement, which sets out your experience and teaching style. This is your opportunity to sell yourself to potential clients.</b></p>
                </div>
                <div class="col-md-12 tagline--padding">
-			   @if(isset($data))
+			   @if(count($data)>0)
 				   @foreach($data as $datas)
-                  <textarea type="textarea" style="height: 150px;width: 100%;" class="input" placeholder="Bio" name="bio" id="bio" required>{{$datas['bio']}}</textarea>
+			   @if($datas['bio'] == "")
+                  <textarea type="textarea" style="height: 150px;width: 100%;" class="input" placeholder="Bio" name="bio" id="bio"></textarea>
+				  @else
+					  <textarea type="textarea" style="height: 150px;width: 100%;" class="input" placeholder="Bio" name="bio" id="bio">{{$datas['bio']}}</textarea>
+					  @endif
 				  @endforeach
+				  @else
+					   <textarea type="textarea" style="height: 150px;width: 100%;" class="input" placeholder="Bio" name="bio" id="bio"></textarea>
 				  @endif
                </div>              
                <div class="col-md-6 login--form--button">
@@ -2029,14 +2040,26 @@
       </ul>
 	  
       <ul class="nav navbar-nav navbar-right nav--header">
-				<li class="round--image2">
+					
+					<li class="round--image2">
+					@if($user['image_url'] == '')
+				<a href="#"><img id="dp2" src="{{URL::asset('public/img/user.svg')}}" width="30px" height="30px" alt="User"></a>
+			@else
 				<a href="#"><img id="dp2" src="{{ ((isset($user['image_url'])? URL::asset('public/images/'.$user['image_url']): URL::asset('public/img/user.svg')))  }}" width="30px" height="30px" alt="User"></a>
+				@endif
 				</li>
+				
       <li class="dropdown header--dropdown__color">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Name <span class="caret"></span></a>
-          <ul class="dropdown-menu profile-dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="menu_drop">User Name <span class="caret"></span></a>
+          <ul class="dropdown-menu profile-dropdown" id="drop_menu" style="display:none">
             <li><a href="#">Referrals</a></li>
-            <li><a href="#">Log Out</a></li>
+			
+			<li><a href="{{ url('/logout') }}"
+			onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Log out</a>
+			<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+            </form>
+            </li>
           </ul>
         </li>
       </ul>
@@ -2051,23 +2074,27 @@
 <div class="container">
 <div class="row">
     <div class="col-sm-12 profile--tagline text-center">
-	@if(isset($data))
+	@if(count($data)>0)
 		@foreach($data as $datas)
 		@if($datas['tagline'] == "")
-			<span  id="tags" class="lead"> Click here to set your tagline </span>
+			<span  id="tags" class="lead tagline_cls"> Click here to set your tagline </span>
 		@else
-		  <span class="lead">{{$datas['tagline']}}</span>
+		  <span class="lead tagline_cls">{{$datas['tagline']}}</span>
 		@endif
 		@endforeach
+		@else
+			<span  id="tags" class="lead tagline_cls"> Click here to set your tagline </span>
 		@endif
 		<span class="lead"><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal"><a href="#" class="profile--edit"><img src="{{ URL::asset('public/img/logo.svg') }}" width="20px">Edit</a></button></span>
     </div>
     <div class="col-md-12 profile--borderLine"></div>
     <div class="col-md-3">
         <div class="round--image"><div>
-		
-		<img id="dp" src="{{ ((isset($user['image_url'])? URL::asset('public/images/'.$user['image_url']): URL::asset('public/img/user.svg')))  }}" width="150px" height="150px" alt="Profile Image">
-		
+		@if($user['image_url'] == '')
+		<img id="dp" src="{{ URL::asset('public/img/user.svg') }}" width="150px" height="150px" alt="Profile Image">
+		@else
+			<img id="dp" src="{{ ((isset($user['image_url'])? URL::asset('public/images/'.$user['image_url']): URL::asset('public/img/user.svg')))  }}" width="150px" height="150px" alt="Profile Image">
+			@endif
         </div>
 		</div>
         <div class="col-md-12">
@@ -2079,15 +2106,16 @@
         </div>
         <div class="col-md-12">
             <ul class="profile--list">
-			@if(isset($data))
+			@if(count($data)>0)
 				@foreach($data as $datas)
 					@if($datas['tagline'] == "")
-            <li><button type="button" id="tagline" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
-			
+            <li><button type="button" id="tagline" class="tago tagline_disabled" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
 			@else
 				<li><button type="button" id="tagline" style="color: black;" data-toggle="modal" data-target="#myModal" disabled>Set a tagline</button></li>
 			@endif
 			@endforeach
+			@else
+				<li><button type="button" id="tagline" class="tago tagline_disabled" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
 			@endif
             <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal2">Set your rate.</button></li>
             <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal3">Write a bio.</button></li>
@@ -2110,7 +2138,17 @@
                     <button class="profile--button">Record a Video</button>
             </div>
             <div class="col-md-12 profile--para">
-                    <p>You haven't written a bio yet.</p>
+			@if(count($data)>0)
+			@foreach($data as $datas)
+			@if($datas['bio'] == "")
+			 <p class="bio-cls">You haven't written a bio yet.</p>
+			@else
+			<p class="bio-cls">{{$datas['bio']}}</p>
+			@endif
+			@endforeach
+			@else
+			 <p class="bio-cls">You haven't written a bio yet.</p>
+			@endif
             </div>
     </div>
     <div class="col-md-4 profile--tagline">
@@ -2152,8 +2190,8 @@ $(function() {
 		formData.append('file', $('input[type=file]')[0].files[0]); 
 		
 	  	$.ajax({
-        url: 'http://localhost/tutor_project/imageupload',
-         dataType: 'json',
+		url: 'http://localhost/tutor_project/imageupload',
+        dataType: 'json',
         data: formData,
         type: 'POST',
 		contentType: false,
@@ -2175,9 +2213,18 @@ $(document).ready(function(){
     $('.error-msg-login strong').html('');
     var formData = $( this ).serialize();
     $.post('tutortagline', formData, function(response) {  
-        if(response == 'success'){
-			window.location = "{{ url('/userprofile') }}";
-        }else if(response == 'error'){
+        if(response.status == 'success'){
+			if(response.data['tagline'] == ''){
+				$('.tagline_cls').html('Click here to set your tagline');
+				$('#myModal').modal('toggle');
+				$('.tagline_disabled').prop('disabled', false);
+			}else{
+				$('.tagline_cls').html(response.data['tagline']);
+				$('#myModal').modal('toggle');
+				$('.tagline_disabled').prop('disabled', true);
+			}
+				
+        }else if(response.status == 'error'){
             $('.error-msg-login strong').html(response.message);
         }else{
           alert('unknown error.');
@@ -2186,22 +2233,39 @@ $(document).ready(function(){
   });
 });
 </script>
+
 <script type="text/javascript">
 $(document).ready(function(){
-  $( "form#bioForm" ).on( "change", function( event ) {
+  $( "form#bioForm" ).on( "submit", function( event ) {
     event.preventDefault();
     $('.error-msg-login strong').html('');
     var formData = $( this ).serialize();
-		 $.post('tutorbio', formData, function(response) {  
-        if(response == 'success'){
-			
-        }else if(response == 'error'){
+		 $.post('tutorbio', formData, function(response) {
+        if(response.status == 'success'){
+			if(response.data['bio'] == ''){
+				$('.bio-cls').html('You haven\'t written a bio yet.');
+				$('#myModal3').modal('toggle');
+			}else{
+				$('.bio-cls').html(response.data['bio']);
+				$('#myModal3').modal('toggle');
+			}
+        }else if(response.status == 'error'){
             $('.error-msg-login strong').html(response.message);
         }else{
           alert('unknown error.');
         }
     });
   });
+});
+</script>
+<script>
+$(document).ready(function(){
+    $("#menu_drop").click(function(){
+		$("#drop_menu").animate({padding: '10px'});
+		 $("#drop_menu").toggle(300);	
+			
+    });
+	
 });
 </script>
 @endsection

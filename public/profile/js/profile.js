@@ -18,7 +18,7 @@
             });
         });
         
-         $().ready(function() {
+           $().ready(function() {
              // validate signup form on keyup and submit
              $("#bioForm").validate({
                  rules: {

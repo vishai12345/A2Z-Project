@@ -68,10 +68,12 @@
             </div>
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
-                    <a class="dropdown-toggle"  href = 'http://localhost/tutor_project/logout'>
-                        Logout
-                    </a>
-                  
+					<a href="{{ url('/logout') }}" class="dropdown-toggle"
+					onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Log out</a>
+					<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+										</li>
                 </li>
             </ul>
         </nav>

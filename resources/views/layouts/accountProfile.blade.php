@@ -10,6 +10,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
   <form name="tagForm" id="tagForm">
+    {!! csrf_field() !!}
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="{{ URL::asset('public/img/cancel.png') }}"></span></button>
@@ -93,14 +94,14 @@
                   <p><b>Write a professional personal statement, which sets out your experience and teaching style. This is your opportunity to sell yourself to potential clients.</b></p>
                </div>
                <div class="col-md-12 tagline--padding">
-				@if(isset($bio))
+				@if(count($bio)>0)
 				   @foreach($bio as $bios)
-                  <textarea type="textarea" style="height: 150px;width: 100%;" class="input" placeholder="Bio" name="bio" id="bio" required>{{$bios['bio']}}</textarea>
+                  <textarea type="textarea" style="height: 150px;width: 100%;" class="input" placeholder="Bio" name="bio" id="bio" required> {{$bios['bio']}}</textarea>
 				  @endforeach
 			    @endif
                </div>              
                <div class="col-md-6 login--form--button">
-                  <input class="profile--botton" type="submit" value="Save" data-dismiss="modal"/>
+                  <input class="profile--botton" type="submit" value="Save"/>
                </div>
                <div class="col-md-6 login--form--button">
                   <button class="profile--botton" type="button" data-dismiss="modal" class="cancelbtn">Cancel</button>
@@ -2026,14 +2027,24 @@
       </ul>
       <ul class="nav navbar-nav navbar-right nav--header">
 					<li class="round--image2">
-					<a href="#"><img id="dp2" src="{{ ((isset($user['image_url'])? URL::asset('public/images/'.$user['image_url']): URL::asset('public/img/user.svg')))  }}" width="30px" height="30px" alt="User"></a>
-					</li>
+					@if($user['image_url'] == '')
+				<a href="#"><img id="dp2" src="{{URL::asset('public/img/user.svg')}}" width="30px" height="30px" alt="User"></a>
+			@else
+				<a href="#"><img id="dp2" src="{{ ((isset($user['image_url'])? URL::asset('public/images/'.$user['image_url']): URL::asset('public/img/user.svg')))  }}" width="30px" height="30px" alt="User"></a>
+				@endif
+				</li>
 					
       <li class="dropdown header--dropdown__color">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Name <span class="caret"></span></a>
-          <ul class="dropdown-menu profile-dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="menu_drop">User Name <span class="caret"></span></a>
+          <ul class="dropdown-menu profile-dropdown" id="drop_menu" style="display:none;">
             <li><a href="#">Referrals</a></li>
-            <li><a href="#">Log Out</a></li>
+			
+			<li><a href="{{ url('/logout') }}"
+			onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Log out</a>
+			<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+            </form>
+            </li>
           </ul>
         </li>
       </ul>
@@ -2058,8 +2069,9 @@
             <div class="col-md-8 profile--tagline profile--float">
                 <h2>Personal Details</h2>
                 <form name="personal_form" id="personal_form" role="form">
-				{{ csrf_field() }}
-                    <div class="row profile--para">                    
+				
+                    <div class="row profile--para">     
+						{{ csrf_field() }}					
                         <h4>Change Password</h4>
                         <p>To change the current user password, enter the new password in both fields.</p>             
                         <div class="col-md-6 req-text-field">
@@ -2084,7 +2096,7 @@
                           <input type="text" class="input" placeholder="Mobile Number *" name="p_mobile" id="p_mobile" value="{{$user['mobile']}}" required>
                        </div>
                        <h4>Address</h4>
-					   @if(isset($data))
+					   @if(count($data)>0)
 						   @foreach($data as $datas)
                        <div class="col-md-12 req-text-field form-padding">
                           <input type="text" class="input" placeholder="Street" name="street" id="street" value="{{$datas['street']}}">
@@ -2099,6 +2111,19 @@
                           <input type="text" class="input" placeholder="Postcode" name="postcode" id="postcode" value="{{$datas['postcode']}}">
                        </div>
 					   @endforeach
+					   @else
+						   <div class="col-md-12 req-text-field form-padding">
+                          <input type="text" class="input" placeholder="Street" name="street" id="street" value="">
+                       </div>
+                       <div class="col-md-12 req-text-field form-padding">
+                          <input type="text" class="input" placeholder="Town" name="town" id="town" value="">
+                       </div>
+                       <div class="col-md-12 req-text-field form-padding">
+                          <input type="text" class="input" placeholder="Country" name="country" id="country" value="">
+                       </div>
+                       <div class="col-md-12 req-text-field form-padding">
+                          <input type="text" class="input" placeholder="Postcode" name="postcode" id="postcode" value="">
+                       </div>
 					   @endif
 					   
                        <div class="row">
@@ -2119,16 +2144,17 @@
                 </div>
                 <div class="col-md-12">
                     <ul class="profile--list">
-                    @if(isset($bio))
-					@foreach($bio as $bios)
+                   @if(count($bio)>0)
+				@foreach($bio as $bios)
 					@if($bios['tagline'] == "")
-					<li><button type="button" id="tagline" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
-			
-					@else
-					<li><button type="button" id="tagline" style="color: black;" data-toggle="modal" data-target="#myModal" disabled>Set a tagline</button></li>
-					@endif
-					@endforeach
-					@endif
+            <li><button type="button" id="tagline" class="tago tagline_disabled" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
+			@else
+				<li><button type="button" id="tagline" style="color: black;" data-toggle="modal" data-target="#myModal" disabled>Set a tagline</button></li>
+			@endif
+			@endforeach
+			@else
+				<li><button type="button" id="tagline" class="tago tagline_disabled" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
+			@endif
                     <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal2">Set your rate.</button></li>
                     <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal3">Write a bio.</button></li>
                     <li><div class="inputWrapper">
@@ -2151,7 +2177,7 @@
   </div>
 
 </div>
-
+<a href="#" class="scrollToTop"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 <!-- footer-->
 <script>
 $(function() {
@@ -2184,9 +2210,9 @@ $(document).ready(function(){
     $('.error-msg-login strong').html('');
     var formData = $( this ).serialize();
     $.post('personalInfo', formData, function(response) {  
-        if(response == 'success'){
+        if(response.status == 'success'){
 			alert("Data has been Stored Successfully");
-        }else if(response == 'error'){
+        }else if(response.error == 'error'){
             $('.error-msg-login strong').html(response.message);
         }else{
           alert('unknown error.');
@@ -2195,26 +2221,6 @@ $(document).ready(function(){
   });
 });
 </script>
-
-<script type="text/javascript">
-$(document).ready(function(){
-  $( "form#bioForm" ).on( "change", function( event ) {
-    event.preventDefault();
-    $('.error-msg-login strong').html('');
-    var formData = $( this ).serialize();
-		 $.post('tutorbio', formData, function(response) {  
-        if(response == 'success'){
-			
-        }else if(response == 'error'){
-            $('.error-msg-login strong').html(response.message);
-        }else{
-          alert('unknown error.');
-        }
-    });
-  });
-});
-</script>
-
 <script type="text/javascript">
 $(document).ready(function(){
   $( "form#tagForm" ).on( "submit", function( event ) {
@@ -2222,9 +2228,18 @@ $(document).ready(function(){
     $('.error-msg-login strong').html('');
     var formData = $( this ).serialize();
     $.post('tutortagline', formData, function(response) {  
-        if(response == 'success'){
-			window.location = "{{ url('/userprofile') }}";
-        }else if(response == 'error'){
+        if(response.status == 'success'){
+			if(response.data['tagline'] == ''){
+				$('.tagline_cls').html('Click here to set your tagline');
+				$('#myModal').modal('toggle');
+				$('.tagline_disabled').prop('disabled', false);
+			}else{
+				$('.tagline_cls').html(response.data['tagline']);
+				$('#myModal').modal('toggle');
+				$('.tagline_disabled').prop('disabled', true);
+			}
+				
+        }else if(response.status == 'error'){
             $('.error-msg-login strong').html(response.message);
         }else{
           alert('unknown error.');
@@ -2233,7 +2248,37 @@ $(document).ready(function(){
   });
 });
 </script>
-<a href="#" class="scrollToTop"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
-<!-- footer-->
 
+<script type="text/javascript">
+$(document).ready(function(){
+  $( "form#bioForm" ).on( "submit", function( event ) {
+    event.preventDefault();
+    $('.error-msg-login strong').html('');
+    var formData = $( this ).serialize();
+		 $.post('tutorbio', formData, function(response) {
+        if(response.status == 'success'){
+			if(response.data['bio'] == ''){
+				
+				$('#myModal3').modal('toggle');
+			}else{
+				
+				$('#myModal3').modal('toggle');
+			}
+        }else if(response.status == 'error'){
+            $('.error-msg-login strong').html(response.message);
+        }else{
+          alert('unknown error.');
+        }
+    });
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+    $("#menu_drop").click(function(){
+ $("#drop_menu").toggle(500);	
+	
+    });
+});
+</script>
 @endsection
