@@ -27,7 +27,7 @@
 <div class="ibox-title">
                     <h5>Subjects Category</h5>
                    <div class="ibox-tools pull-right">
-                        <a href="http://localhost/tutor_project/admin/subjectCats" class="btn btn-primary btn-xs">Back</a>
+                        <a href="{{URL('/admin/subjectCats')}}" class="btn btn-primary btn-xs">Back</a>
                     </div>
                 </div>
 				</div>

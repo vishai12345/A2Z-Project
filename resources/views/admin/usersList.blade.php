@@ -7,7 +7,7 @@
                 <div class="ibox-title">
                     <h5>Users</h5>
                     <div class="ibox-tools pull-right">
-                        {{ Html::link('admin/add-lawyer', 'Add New', array('class' => 'btn btn-primary btn-xs'))}}
+                        {{ Html::link('admin/add-lawyer', '', array('class' => 'btn btn-primary btn-xs'))}}
                     </div>
                 </div>
                 <div class="ibox-content">

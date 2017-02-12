@@ -2016,14 +2016,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><img src="{{ URL::asset('public/img/logo.svg') }}" style="margin: -8px;width: 100%;" class="img-responsive"></a>
+      <a class="navbar-brand" href="{{URL('/')}}"><img src="{{ URL::asset('public/img/logo.svg') }}" style="margin: -8px;width: 100%;" class="img-responsive"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav nav--header">
-        <li><a href='http://localhost/tutor_project/userprofile'>Profile</a></li>
-       <li><a href='http://localhost/tutor_project/accprofile'>Account</a></li>
+       <ul class="nav navbar-nav nav--header">
+       <li><a href="{{URL('/userprofile')}}">Profile</a></li>
+       <li><a href="{{URL('/accprofile')}}">Account</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right nav--header">
 					<li class="round--image2">
@@ -2035,7 +2035,7 @@
 				</li>
 					
       <li class="dropdown header--dropdown__color">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="menu_drop">User Name <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="menu_drop">{{ Auth::user()->name }}<span class="caret"></span></a>
           <ul class="dropdown-menu profile-dropdown" id="drop_menu" style="display:none;">
             <li><a href="#">Referrals</a></li>
 			
@@ -2187,7 +2187,7 @@ $(function() {
 		formData.append('file', $('input[type=file]')[0].files[0]); 
 		
 	  	$.ajax({
-        url: 'http://localhost/tutor_project/imageupload',
+        url: "{{URL('/imageupload')}}",
          dataType: 'json',
         data: formData,
         type: 'POST',

@@ -13,23 +13,36 @@
     <span class="icon-bar"></span>
     <span class="icon-bar"></span>
   </button>
-  <a class="navbar-brand" href="#"><img src="{{ URL::asset('public/img/logo.svg') }}" style="margin: -8px;width: 100%;" class="img-responsive"></a>
+  <a class="navbar-brand" href="{{URL('/')}}"><img src="{{ URL::asset('public/img/logo.svg') }}" style="margin: -8px;width: 100%;" class="img-responsive"></a>
 </div>
 
 <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
-    <li><button class="request-button" onclick="show_popup('request-form');changeurlTutor();">Request a tutor</button></li>
+  @if(Auth::user())
+       <li><a href="{{URL('/userprofile')}}" style="font-size:16px;text-transform: uppercase;">Profile</a></li>
+       <li><a href="{{URL('/accprofile')}}" style="font-size:16px;text-transform: uppercase;">Account</a></li>
+	   <li><button class="request-button" onclick="show_popup('request-form');changeurlTutor();">Request a tutor</button></li>
+	@else
+		 <li><button class="request-button" onclick="show_popup('request-form');changeurlTutor();">Request a tutor</button></li>
+		@endif
   </ul>
   <ul class="nav navbar-nav navbar-right">
    @if(Auth::user())
-	<li>
-	<a href="{{ url('/logout') }}" class="btn btn-primary btn-sm"
-	onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Log out</a>
-	<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+
+	  <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="menu_drop" style="font-size:16px">{{ Auth::user()->name }}<span class="caret"></span></a>
+          <ul class="dropdown-menu profile-dropdown" id="drop_menu" style="display:none;">
+            <li><a href="#">Referrals</a></li>
+			
+			<li><a href="{{ url('/logout') }}"
+			onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Log out</a>
+			<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
-                                        </form>
-										</li>
+            </form>
+            </li>
+          </ul>
+        </li>
  
 	@else
 		 <li><button onClick="show_popup('login-form');changeurlLogin();">TUTOR LOGIN</button></li>
@@ -457,5 +470,12 @@
         $('.flexdatalist').flexdatalist();
     });
 </script>
-
+<script>
+$(document).ready(function(){
+    $("#menu_drop").click(function(){
+ $("#drop_menu").toggle(500);	
+	
+    });
+});
+</script>
 @endsection

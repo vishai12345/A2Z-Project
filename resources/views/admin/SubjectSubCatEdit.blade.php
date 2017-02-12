@@ -28,7 +28,7 @@
 <div class="ibox-title">
                     <h5>Edit Category:{{$subjects['category_name']}}</h5>
                    <div class="ibox-tools pull-right">
-                        <a href="http://localhost/tutor_project/admin/SubjectSubCategory" class="btn btn-primary btn-xs">Back</a>
+                        <a href="{{URL('admin/SubjectSubCategory')}}" class="btn btn-primary btn-xs">Back</a>
                     </div>
                 </div>
 				</div>

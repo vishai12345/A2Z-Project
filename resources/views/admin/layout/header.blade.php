@@ -10,18 +10,18 @@
                 </div>
             </li>
             <li class="<?php echo (isset($page_type) && $page_type && $page_type == 'lawyers') ? 'active' : ''; ?>">
-                <a href = 'http://localhost/tutor_project/admin/subjects'>
+                <a href = "{{URL('/admin/subjects')}}">
                     <i class="fa fa-users"></i> <span class="nav-label">Manage Subject</span><span class="fa arrow"></span>   
                 </a>
                
             </li>
             <li class="<?php echo (isset($page_type) && $page_type && $page_type == 'users') ? 'active' : ''; ?>">
-                <a href = 'http://localhost/tutor_project//admin/subjectCats'>
+                <a href = "{{URL('/admin/subjectCats')}}">
                     <i class="fa fa-users"></i> <span class="nav-label">Manage Sub'Category</span><span class="fa arrow"></span>
                 </a>
             </li>
 			<li class="<?php echo (isset($page_type) && $page_type && $page_type == 'users') ? 'active' : ''; ?>">
-                <a href = 'http://localhost/tutor_project//admin/SubjectSubCategory '>
+                <a href = "{{URL('/admin/SubjectSubCategory')}} ">
                     <i class="fa fa-users"></i> <span class="nav-label">Subject Sub</span><span class="fa arrow"></span>
                 </a>
             </li>
