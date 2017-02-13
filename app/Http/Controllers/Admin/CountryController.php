@@ -19,6 +19,8 @@ class CountryController extends Controller {
     public function index() {
        
         $data['countrys'] = Country::paginate(20);
+		$data['page_type'] = 'countrys';
+		$data['page'] = 'master';
         return view('admin/countrys', $data);
     }
 

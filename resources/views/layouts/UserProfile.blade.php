@@ -2131,7 +2131,7 @@
             <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal8">Edit Tuition Fees</button></li>
         </div>
     </div>
-    <div class="col-md-5 profile--tagline">
+	  <div class="col-md-5 profile--tagline">
             <h3>{{$user->name}}<button type="button" style="color: black;" data-toggle="modal" data-target="#myModal3"><a href="#" class="profile--edit"><img src="{{ URL::asset('public/img/logo.svg') }}" width="20px">Edit</a></button>
              </h3>
             <div class="col-md-12">
@@ -2151,7 +2151,8 @@
 			@endif
             </div>
     </div>
-    <div class="col-md-4 profile--tagline">
+	
+	    <div class="col-md-4 profile--tagline">
             <div class="col-md-4 profile--borderLineVerti">
                 <h3>£_</h3>
                 <input type="text" name="pound" id="pou">
@@ -2200,6 +2201,7 @@ $(function() {
 		$(document).ready(function(){
 		$("#dp").attr('src',data);
 		$("#dp2").attr('src',data);
+		toastr.success('Image has been Stored Successfully.', 'Success Alert', {timeOut: 5000})
 		});
         }
     });
@@ -2222,6 +2224,7 @@ $(document).ready(function(){
 				$('.tagline_cls').html(response.data['tagline']);
 				$('#myModal').modal('toggle');
 				$('.tagline_disabled').prop('disabled', true);
+				toastr.success('Tagline has been Stored Successfully.', 'Success Alert', {timeOut: 5000})
 			}
 				
         }else if(response.status == 'error'){
@@ -2248,6 +2251,7 @@ $(document).ready(function(){
 			}else{
 				$('.bio-cls').html(response.data['bio']);
 				$('#myModal3').modal('toggle');
+				toastr.success('Bio has been Stored Successfully.', 'Success Alert', {timeOut: 5000})
 			}
         }else if(response.status == 'error'){
             $('.error-msg-login strong').html(response.message);

@@ -9,52 +9,44 @@
                     </span>
                 </div>
             </li>
-            <li class="<?php echo (isset($page_type) && $page_type && $page_type == 'lawyers') ? 'active' : ''; ?>">
+            <li class="<?php echo (isset($page_type) && $page_type && $page_type == 'subjects') ? 'active' : ''; ?>">
                 <a href = "{{URL('/admin/subjects')}}">
                     <i class="fa fa-users"></i> <span class="nav-label">Manage Subject</span><span class="fa arrow"></span>   
                 </a>
                
             </li>
-            <li class="<?php echo (isset($page_type) && $page_type && $page_type == 'users') ? 'active' : ''; ?>">
+            <li class="<?php echo (isset($page_type) && $page_type && $page_type == 'subjectCats') ? 'active' : ''; ?>">
                 <a href = "{{URL('/admin/subjectCats')}}">
-                    <i class="fa fa-users"></i> <span class="nav-label">Manage Sub'Category</span><span class="fa arrow"></span>
+                    <i class="fa fa-users"></i> <span class="nav-label">Manage Category</span><span class="fa arrow"></span>
                 </a>
             </li>
-			<li class="<?php echo (isset($page_type) && $page_type && $page_type == 'users') ? 'active' : ''; ?>">
+			<li class="<?php echo (isset($page_type) && $page_type && $page_type == 'SubjectSubCategory') ? 'active' : ''; ?>">
                 <a href = "{{URL('/admin/SubjectSubCategory')}} ">
-                    <i class="fa fa-users"></i> <span class="nav-label">Subject Sub</span><span class="fa arrow"></span>
+                    <i class="fa fa-users"></i> <span class="nav-label">Manage Sub Category</span><span class="fa arrow"></span>
                 </a>
             </li>
-            <li class="">
+            <li class="<?php echo (isset($page) && $page && $page == 'master') ? 'active' : ''; ?>">
                 <a href="#">
                     <i class="fa fa-gears"></i>
                     <span class="nav-label">Master Data</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="active">
+                    <li class="<?php echo (isset($page_type) && $page_type && $page_type == 'states') ? 'active' : ''; ?>">
                         {{ Html::link('admin/states', 'States')}}
                     </li>
-                    <li class="active">
+                    <li class="<?php echo (isset($page_type) && $page_type && $page_type == 'cities') ? 'active' : ''; ?>">
                         {{ Html::link('admin/cities', 'Cities')}}
+                    </li>
+					<li class="<?php echo (isset($page_type) && $page_type && $page_type == 'countrys') ? 'active' : ''; ?>">
+                        {{ Html::link('admin/countrys', 'Country')}}
                     </li>
                 </ul>
             </li>
-            <li class="<?php echo (isset($page_type) && $page_type && $page_type == 'profiles') ? 'active' : ''; ?>">
-                <a href="#">
-                    <i class="fa fa-gear"></i> <span class="nav-label">Social/Legal Profile</span><span class="fa arrow"></span>
+            <li class="<?php echo (isset($page_type) && $page_type && $page_type == 'users') ? 'active' : ''; ?>">
+                <a href="{{URL('/admin/users')}}">
+                    <i class="fa fa-gear"></i> <span class="nav-label">Users</span><span class="fa arrow"></span>
                 </a>
-                <ul class="nav nav-second-level collapse">
-                    <li class="<?php echo (isset($page) && $page && $page == 'social') ? 'active' : ''; ?>">
-                        {{ Html::link('admin/social-profiles', 'Social Profiles')}}
-                    </li>
-                    <li class="<?php echo (isset($page) && $page && $page == 'legal') ? 'active' : ''; ?>">
-                        {{ Html::link('admin/legal-profiles', 'Legal Profiles')}}
-                    </li>
-                    <li class="<?php echo (isset($page) && $page && $page == 'profile') ? 'active' : ''; ?>">
-                        {{ Html::link('admin/add-profile', 'Add New Profile')}}
-                    </li>
-                </ul>
             </li>
         </ul>
     </div>

@@ -20,6 +20,8 @@ class StateController extends Controller {
     public function index() {
         //$data['states'] = State::all();
         $data['states'] = State::paginate(20);
+		$data['page_type'] = 'states';
+		$data['page'] = 'master';
         return view('admin/states', $data);
     }
 

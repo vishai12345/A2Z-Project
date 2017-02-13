@@ -59,18 +59,18 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
     <div class="col-sm-5 search-field">
-		<input 			   type='text'
+				    <input type='text'
                            placeholder="What do you need help with?"
-                           class='flexdatalist'
+                           class="form-control input-lg flexdatalist"
                            data-url='search/searchSubject'
                            data-search-in='["category_name"]'
                            data-visible-properties='["category_name"]'
                            data-selection-required='true'
                            data-value-property='value'
                            data-min-length='1'
-						    data-focus-first-result='true'
+						   data-focus-first-result='true'
                            name="search_subject"
-						   style="padding: 0px 15px; width: 394px;margin-bottom: 0px;height: 50px;font: 15.3333px ;font-family: inherit;color:black">
+						   style="font-size:15px;">
     </div>
 	
     <div class="col-sm-5 search-field ">

@@ -30,6 +30,7 @@ class SubjectController extends Controller {
 		
 		if($role == 'admin'){
 			 $data['subjects'] = Subject::paginate(15);
+			 $data['page_type'] = 'subjects';
         return view('admin/subjects', $data);
 		}else{
        return redirect('/');

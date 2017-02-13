@@ -21,6 +21,8 @@ class CityController extends Controller {
        
         $data['cities'] = City::paginate(20);
         $data['states'] = State::all();
+		$data['page_type'] = 'cities';
+		$data['page'] = 'master';
         return view('admin/cities', $data);
     }
 

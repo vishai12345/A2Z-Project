@@ -2066,7 +2066,43 @@
         <div class="container">
         <div class="row">
             <div class="col-md-12 profile--borderLine"></div>
-            <div class="col-md-8 profile--tagline profile--float">
+
+            <div class="col-md-4 profile--progressMenu">
+                <div class="col-md-12">
+                    <button class="profile--button">Go Live</button>
+                </div>
+                <div class="col-md-12">
+                    <p class="profile--subHeading">Progress</p>
+                    <div class="profile--progressBar"></div>
+                </div>
+                <div class="col-md-12">
+                    <ul class="profile--list">
+                   @if(count($bio)>0)
+				@foreach($bio as $bios)
+					@if($bios['tagline'] == "")
+            <li><button type="button" id="tagline" class="tago tagline_disabled" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
+			@else
+				<li><button type="button" id="tagline" style="color: black;" data-toggle="modal" data-target="#myModal" disabled>Set a tagline</button></li>
+			@endif
+			@endforeach
+			@else
+				<li><button type="button" id="tagline" class="tago tagline_disabled" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
+			@endif
+                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal2">Set your rate.</button></li>
+                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal3">Write a bio.</button></li>
+                    <li><div class="inputWrapper">
+                    <form id="upload_form" enctype="multipart/form-data">
+					{!! csrf_field() !!}
+					<input type='file' class="fileInput"  id = "inTag" name="file" />Upload a profile picture. 
+					</form> 
+					</div></li>
+                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal4">Add your subject.</button></li>
+                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal6">Set your travel policy.</button></li>
+                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal7">Upload some identification.</button></li>
+                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal8">Edit Tuition Fees</button></li>
+                </div>
+            </div>
+			            <div class="col-md-8 profile--tagline profile--float">
                 <h2>Personal Details</h2>
                 <form name="personal_form" id="personal_form" role="form">
 				
@@ -2134,42 +2170,8 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-4 profile--progressMenu">
-                <div class="col-md-12">
-                    <button class="profile--button">Go Live</button>
-                </div>
-                <div class="col-md-12">
-                    <p class="profile--subHeading">Progress</p>
-                    <div class="profile--progressBar"></div>
-                </div>
-                <div class="col-md-12">
-                    <ul class="profile--list">
-                   @if(count($bio)>0)
-				@foreach($bio as $bios)
-					@if($bios['tagline'] == "")
-            <li><button type="button" id="tagline" class="tago tagline_disabled" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
-			@else
-				<li><button type="button" id="tagline" style="color: black;" data-toggle="modal" data-target="#myModal" disabled>Set a tagline</button></li>
-			@endif
-			@endforeach
-			@else
-				<li><button type="button" id="tagline" class="tago tagline_disabled" style="color: black;" data-toggle="modal" data-target="#myModal">Set a tagline</button></li>
-			@endif
-                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal2">Set your rate.</button></li>
-                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal3">Write a bio.</button></li>
-                    <li><div class="inputWrapper">
-                    <form id="upload_form" enctype="multipart/form-data">
-					{!! csrf_field() !!}
-					<input type='file' class="fileInput"  id = "inTag" name="file" />Upload a profile picture. 
-					</form> 
-					</div></li>
-                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal4">Add your subject.</button></li>
-                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal6">Set your travel policy.</button></li>
-                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal7">Upload some identification.</button></li>
-                    <li><button type="button" style="color: black;" data-toggle="modal" data-target="#myModal8">Edit Tuition Fees</button></li>
-                </div>
-            </div>
           </div>
+		  
         </div>
         <!--personal-->
     </div>
@@ -2197,6 +2199,7 @@ $(function() {
 		$(document).ready(function(){
 		$("#dp").attr('src',data);
 		$("#dp2").attr('src',data);
+		toastr.success('Image has been Stored Successfully.', 'Success Alert', {timeOut: 5000})
 		});
         }
     });
@@ -2211,7 +2214,7 @@ $(document).ready(function(){
     var formData = $( this ).serialize();
     $.post('personalInfo', formData, function(response) {  
         if(response.status == 'success'){
-			alert("Data has been Stored Successfully");
+			toastr.success('Data has been Stored Successfully.', 'Success Alert', {timeOut: 5000})
         }else if(response.error == 'error'){
             $('.error-msg-login strong').html(response.message);
         }else{
@@ -2237,6 +2240,7 @@ $(document).ready(function(){
 				$('.tagline_cls').html(response.data['tagline']);
 				$('#myModal').modal('toggle');
 				$('.tagline_disabled').prop('disabled', true);
+				toastr.success('Tagline has been Stored Successfully.', 'Success Alert', {timeOut: 5000})
 			}
 				
         }else if(response.status == 'error'){
@@ -2263,6 +2267,7 @@ $(document).ready(function(){
 			}else{
 				
 				$('#myModal3').modal('toggle');
+				toastr.success('Bio has been Stored Successfully.', 'Success Alert', {timeOut: 5000})
 			}
         }else if(response.status == 'error'){
             $('.error-msg-login strong').html(response.message);

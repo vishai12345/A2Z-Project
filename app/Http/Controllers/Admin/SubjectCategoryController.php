@@ -20,6 +20,7 @@ class SubjectCategoryController extends Controller {
 	
 	public function indexSubjectCat() {
         $data['subjects'] = SubjectCategory::paginate(15);
+		$data['page_type'] = 'subjectCats';
         return view('admin/subcats', $data);
     }
 	

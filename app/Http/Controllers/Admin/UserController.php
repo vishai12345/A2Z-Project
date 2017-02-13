@@ -20,6 +20,7 @@ class UserController extends Controller {
     public function index() {
         
         $data['users'] = User::paginate(30);
+		$data['page_type'] = 'users';
         return view('admin/usersList', $data);
     }
 	
