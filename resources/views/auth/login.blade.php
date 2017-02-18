@@ -5,7 +5,7 @@
 <div class="regcont">
     <div class="row">
         <div class="col-md-12">
-            <a class="cross-popup cross" href="javascript:hide_popup('login-form');changeurl();"><img src="{{ URL::asset('public/img/cancel.png') }}"></a>
+            <a class="cross-popup cross" href="javascript:hide_popup('login-form');changeurl();" onclick="clear_form_elements(formLogin)"><img src="{{ URL::asset('public/img/cancel.png') }}"></a>
         </div>
         <div class="col-md-12 text-center">
             <h2>Login</h2>
@@ -59,11 +59,15 @@ $(document).ready(function(){
     $('.error-msg-login strong').html('');
     var formData = $( this ).serialize();
     $.post('login', formData, function(response) {  
-        if(response == 'admin'){
-          window.location = "{{ url('/admin/subjects') }}";
-        }else if(response == 'tutor'){
-            window.location = "{{ url('/home') }}";
-        }else if(response == 'error'){
+        if(response.status == 'success'){
+			if(response.role == 'admin'){
+			window.location = "{{ url('/admin/subjects') }}";
+			}else if(response.role == 'tutor'){ 
+			window.location = "{{ url('/') }}";
+			}else if(response.role == 'student'){ 
+			window.location = "{{ url('/student/dashboard') }}";
+			}
+        }else if(response.status == 'error'){
             $('.error-msg-login strong').html(response.message);
         }else{
           alert('unknown error.');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\SubjectCategory;
+use App\Subject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +16,9 @@ class SubjectCategoryController extends Controller {
 	
 	
 	public function index(){
-		return view('admin/subject_category');
+
+		$subject['sub'] = Subject::all();
+		return view('admin/subject_category',$subject);
 	}
 	
 	public function indexSubjectCat() {
@@ -26,23 +29,29 @@ class SubjectCategoryController extends Controller {
 	
 	public function getSubjectCat($id){
 		
-		$subject = SubjectCategory::where('id',$id)
+		$subject['subject'] = SubjectCategory::where('id',$id)
 				->get();
-				
-		return view('admin/edit-subjectCat',['subject'=>$subject]);	
+		$subject['sub'] = Subject::all();		
+		return view('admin/edit-subjectCat',$subject);	
 	}
 	
 	public function subjectCatEntry(Request $request){
 		
 		$data = $request->all();
-		
+		$subjects = Subject::select('subject_name')->where('id', $data['subject_id'])
+												   ->get();
+		foreach($subjects as $subject)
+		{
+
 			SubjectCategory::create([
-			'id' => $data['id'],
             'subject_id' => $data['subject_id'],
+            'subject_name' => $subject['subject_name'],
             'category_name' => $data['category_name'],
-			'remember_token' => str_random(10),
+			'remember_token' => $data['_token'],
 			
         ]);
+		}			   
+			
 		
 		return redirect ('admin/subjectCats')->with('success_msg', 'Subject category is Added.');
 	}

@@ -37,8 +37,9 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Sub Id</th>
-                                    <th>Category Id</th>
+                                    <th>Subject</th>
+                                    <th>Subject Category</th>
+                                    <th>Sub Category Name</th>
 									<th>Action</th>
                                 </tr>
                             </thead>
@@ -48,7 +49,8 @@
                                 @foreach ($subjects as $subject)                             
                                 <tr>
                                     <td><?php echo ++$i; ?></td>
-                                    <td>{{ $subject->id }}</td>
+                                    <td>{{ $subject->subject_name}}</td>
+                                    <td>{{ $subject->sub_cat_name}}</td>
 									 <td>{{ $subject->category_name}}</td>
                                     
                                     <td>

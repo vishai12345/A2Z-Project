@@ -43,8 +43,15 @@
 
 <div class="form-group">
   {{ Form::label('subjectid', 'Subject ID')}} 
-
-{{ Form::text('subject_id', $subjects['subject_id'], array('class' => 'form-control')) }}
+  <select  name="subject_id" id="subject_id" class="form-control" required="required"
+                                         data-parsley-required-message="Please Select subject">
+                                    <option value="" >Select Subject</option>
+                                    @if($sub)
+                                    @foreach($sub as $state)
+                                    <option value="{{$state->id}}" >{{$state->subject_name}}</option>
+                                    @endforeach
+                                    @endif
+                                </select>
 
 </div>
 <div class="form-group">

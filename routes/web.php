@@ -48,6 +48,7 @@ Route::get('/admin/subjects/{id}'           ,'Admin\SubjectController@deleteSubj
 Route::get('/admin/edit-subjects/{id}'      ,'Admin\SubjectController@getSubject');
 Route::post('/admin/subject-edit'           ,'Admin\SubjectController@subjectEdit');
 
+
 //Subject category Routes
 Route::get('/admin/subjectCats'             ,'Admin\SubjectCategoryController@indexSubjectCat');
 Route::get('/admin/subcat'                  ,'Admin\SubjectCategoryController@index');
@@ -102,3 +103,13 @@ Route::get('/admin/delete-user/{id}', 'Admin\UserController@deleteUser');
 Route::get('/admin/user-status-deactivate/{user_id}', 'Admin\UserController@statusDeactivate');
 Route::get('/admin/user-status-activate/{user_id}', 'Admin\UserController@statusActivate');
 Route::get('/admin/user-status-verify/{user_id}', 'Admin\UserController@statusActivate');
+
+Route::get('/student/dashboard','StudentController@index');
+Route::get('/student/messages','StudentController@messageGet');
+Route::get('/student/messageRead/','StudentController@messageRead');
+Route::post('/student/student_acc_data','StudentController@storeData');
+Route::get('/student/account','StudentController@studentData');
+Route::get('/student/tutor',function(){
+	return view('layouts/student_tutors');
+});
+Route::post('/student/tutor_request','StudentController@messageSend');

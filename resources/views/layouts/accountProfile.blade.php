@@ -3,9 +3,14 @@
   @extends('layouts.default')
 
 @section('content')
-     
-</head>
-<body>
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">              
+     <span class="close" data-dismiss="modal" aria-hidden="true">&times;</span>
+        <img src="" class="imagepreview" style="width: 100%;height:50%" >  
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -2026,7 +2031,7 @@
        <li><a href="{{URL('/accprofile')}}">Account</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right nav--header">
-					<li class="round--image2">
+					<li class="round--image2 pop">
 					@if($user['image_url'] == '')
 				<a href="#"><img id="dp2" src="{{URL::asset('public/img/user.svg')}}" width="30px" height="30px" alt="User"></a>
 			@else
@@ -2035,8 +2040,8 @@
 				</li>
 					
       <li class="dropdown header--dropdown__color">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="menu_drop">{{ Auth::user()->name }}<span class="caret"></span></a>
-          <ul class="dropdown-menu profile-dropdown" id="drop_menu" style="display:none;">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}<span class="caret"></span></a>
+          <ul class="dropdown-menu profile-dropdown" >
             <li><a href="#">Referrals</a></li>
 			
 			<li><a href="{{ url('/logout') }}"
@@ -2199,7 +2204,7 @@ $(function() {
 		$(document).ready(function(){
 		$("#dp").attr('src',data);
 		$("#dp2").attr('src',data);
-		toastr.success('Image has been Stored Successfully.', 'Success Alert', {timeOut: 5000})
+		toastr.success('Image has been Stored Successfully.', 'Success', {timeOut: 3000})
 		});
         }
     });
@@ -2214,7 +2219,7 @@ $(document).ready(function(){
     var formData = $( this ).serialize();
     $.post('personalInfo', formData, function(response) {  
         if(response.status == 'success'){
-			toastr.success('Data has been Stored Successfully.', 'Success Alert', {timeOut: 5000})
+			toastr.success('Data has been Stored Successfully.', 'Success Alert', {timeOut: 3000})
         }else if(response.error == 'error'){
             $('.error-msg-login strong').html(response.message);
         }else{
@@ -2240,7 +2245,7 @@ $(document).ready(function(){
 				$('.tagline_cls').html(response.data['tagline']);
 				$('#myModal').modal('toggle');
 				$('.tagline_disabled').prop('disabled', true);
-				toastr.success('Tagline has been Stored Successfully.', 'Success Alert', {timeOut: 5000})
+				toastr.success('Tagline has been Stored Successfully.', 'Success', {timeOut: 3000})
 			}
 				
         }else if(response.status == 'error'){
@@ -2267,7 +2272,7 @@ $(document).ready(function(){
 			}else{
 				
 				$('#myModal3').modal('toggle');
-				toastr.success('Bio has been Stored Successfully.', 'Success Alert', {timeOut: 5000})
+				toastr.success('Bio has been Stored Successfully.', 'Success', {timeOut: 3000})
 			}
         }else if(response.status == 'error'){
             $('.error-msg-login strong').html(response.message);
@@ -2284,6 +2289,14 @@ $(document).ready(function(){
  $("#drop_menu").toggle(500);	
 	
     });
+});
+</script>
+<script>
+$(function() {
+		$('.pop').on('click', function() {
+			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
+			$('#imagemodal').modal('show');   
+		});		
 });
 </script>
 @endsection

@@ -37,12 +37,6 @@
 				<div class="col-md-offset-1 col-md-4">
 <div class="form-group">
 {{ Form::open(array('method' => 'post','action'=>'Admin\SubjectController@subjectEntry')) }}
-<div class="form-group">
-  {{ Form::label('id', 'ID')}} 
-
-{{ Form::text('id', '', array('class' => 'form-control')) }}
-
-</div>
 
 <div class="form-group">
   {{ Form::label('subject', 'Subject')}} 

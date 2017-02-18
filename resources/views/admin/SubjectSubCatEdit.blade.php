@@ -37,14 +37,14 @@
 <div class="form-group">
   {{ Form::label('id', 'ID')}} 
 
-{{ Form::text('id', $subjects['id'], array('class' => 'form-control','readonly')) }}
+{{ Form::text('id', $subjects['subject_cat_id'], array('class' => 'form-control','readonly')) }}
 
 </div>
 
 <div class="form-group">
-  {{ Form::label('categoryid', 'Category ID')}} 
+  {{ Form::label('category_name', 'Category Name')}} 
 
-{{ Form::text('category_id', $subjects['category_id'], array('class' => 'form-control')) }}
+{{ Form::text('category_id', $subjects['category_name'], array('class' => 'form-control')) }}
 
 </div>
 

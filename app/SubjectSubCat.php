@@ -9,6 +9,6 @@ class SubjectSubCat extends Model{
 	 protected $table = "subjectsub_cat";
 	
 	 protected $fillable = [
-        'id', 'category_name','remember_token',
+        'id','subject_cat_id','subject_name','sub_cat_name', 'category_name','remember_token',
     ];
 }

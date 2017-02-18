@@ -51,8 +51,7 @@ class SubjectController extends Controller {
 		
 			Subject::create([
             'subject_name' => $data['subject_name'],
-            'id' => $data['id'],
-			'remember_token' => str_random(10),
+			'remember_token' =>  $data['_token'],
 			
         ]);
 		return redirect ('admin/subjects')->with('success_msg', 'Subject is Added.');

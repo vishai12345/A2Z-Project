@@ -37,9 +37,15 @@
  {!! Form::open(array('action' => 'Admin\SubjectSubCatController@SubjectSubCatEntry', 'files'=>true, 'method'=>'post', 'class'=>'lawisterForm')) !!}
 
 <div class="form-group">
-  {{ Form::label('id', 'ID')}} 
-
-{{ Form::text('id', '', array('class' => 'form-control')) }}
+  <select  name="subject_cat_id" id="subject_cat_id" class="form-control" required="required"
+           data-parsley-required-message="Please Select sub category">
+           <option value="" >Select Subject</option>
+           @if($sub)
+           @foreach($sub as $state)
+         <option value="{{$state->id}}" >{{$state->category_name}}</option>
+          @endforeach
+           @endif
+      </select>
 
 </div>
 

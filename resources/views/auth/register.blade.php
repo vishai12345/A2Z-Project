@@ -4,7 +4,7 @@
 <div class="regcont">
   <div class="row">
       <div class="col-md-12">
-        <a class="cross-popup cross" href="javascript:hide_popup('signup-form');changeurl();"><img src="{{ URL::asset('public/img/cancel.png') }}"></a>
+<a class="cross-popup cross" href="javascript:hide_popup('signup-form');changeurl();" onclick="clear_form_elements(formRegisterTutor)"><img src="{{ URL::asset('public/img/cancel.png') }}"></a>
       </div>
       <div class="col-md-12 text-center">
         <h2>Want to become a Tutor?</h2>
@@ -81,7 +81,7 @@ $(document).ready(function(){
     $(this).find('.error-msg strong').html('');
     var formData = $( this ).serialize();
     $.post('register', formData, function(response) {  
-                if(response == 'success'){
+                if(response.status == 'success'){
                   window.location = "{{ url('/thankyou') }}";
                 }else{
                   $.each(response, function(key, val){

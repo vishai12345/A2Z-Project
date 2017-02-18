@@ -37,7 +37,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Id</th>
+                                
                                     <th>Subject Name</th>
 									<th>Action</th>
                                 </tr>
@@ -48,7 +48,7 @@
                                 @foreach ($subjects as $subject)                             
                                 <tr>
                                     <td><?php echo ++$i; ?></td>
-                                    <td>{{ $subject->id }}</td>
+                                 
                                     <td>{{ $subject->subject_name}}</td>
                                     
                                     <td>

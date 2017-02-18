@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use App\message;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -52,7 +53,8 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {   if($data['role'] == 'tutor'){
+    {  
+		if($data['role'] == 'tutor'){
             return Validator::make($data, [
                 'name' => 'required|max:255',
                 'email' => 'required|email|max:255|unique:users',
@@ -65,8 +67,7 @@ class RegisterController extends Controller
                 'email' => 'required|email|max:255|unique:users',
                 'password' => 'required|min:6',
             ]);
-        }
-        
+        }  
     }
 
     /**
@@ -77,7 +78,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {   
-        //dd($data);
         if($data['role'] == 'tutor'){
             return User::create([
                 'name' => $data['name'],
@@ -92,6 +92,7 @@ class RegisterController extends Controller
 				'verification_code'=> $data['verification_code'],
             ]);
         }else if($data['role'] == 'student'){
+			
             return User::create([
                 'name' => $data['firstname'] .' '. $data['lastname'],
                 'firstname' => $data['firstname'],
@@ -100,6 +101,7 @@ class RegisterController extends Controller
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'role' => $data['role'],
+				'status'=>$data['status'],
             ]);
         }
     }
@@ -112,16 +114,26 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {   
-
+			$data = $request->all();
         $validation = $this->validator($request->all());
         if ($validation->fails())  {  
             return response()->json($validation->errors()->toArray());
-        }
-        else{
-            
+        } else{
             $user = $this->create($request->all());
-			
-			$verification_code =  $user['verification_code'];
+			if($user->role == 'student'){
+				if (Auth::attempt(['email' =>$request->email, 'password' => $request->password]))
+					{	
+					//
+			if(!($this->validate($request, ['subject' => 'required','postal_code' => 'required','message' => 'required']))){ 
+				
+				$msg1 = $this->messageSys($request->all());
+				if($msg1 == 1){
+					return response()->json(['status'=>'success', 'role'=>$user->role, 'message'=>'Auth Successfully.'], 200);}
+				}
+					}
+					
+			} else{
+				$verification_code =  $user['verification_code'];
 			$title = "Hi";
 			$content = "verify Your Account Please click this link to activate your account:";
 			$email = $user->email;
@@ -129,28 +141,14 @@ class RegisterController extends Controller
         {
             $message->from('vc121356@gmail.com', 'vishal chaturvedi');
             $message->to('vc121@gmail.com');
-			  //Attach file
-			//	$message->attach($attach);
-
-            //Add a subject
             $message->subject("Hello from Scotch");
 
         });		
-
-        //    $this->guard()->login($user);
-
             return $this->registered($request, $user)
-            ?: response()->json('success');
-        }
-        
-        /*$response = $this->validator($request->all())->validate();
-        //dd($response);
-        event(new Registered($user = $this->create($request->all())));
-
-        $this->guard()->login($user);
-
-        return $this->registered($request, $user)
-            ?: $response;*/
+            ?:response()->json(['status'=>'success', 'role'=>$user->role, 'message'=>'Auth Successfully.'], 200);
+			}
+			
+			}
     }
 	
 	public function verifyUser($id){
@@ -162,29 +160,32 @@ class RegisterController extends Controller
 	}
 	
 	 public function login(Request $request) {
-		
         $this->validate($request, [
             'email' => 'required|email|max:255',
             'password' => 'required'
         ]);
         //$credentials = $this->getCredentials($request);
         $user = User::whereEmail($request->email)->first();
-        
-        if ($user->status) {
+		 if (!$user) {
+            return response()->json(['status'=>'error', 'message'=>'This E-mail address is not registered with us.'], 200);
+        }
+        if ($user->status== '1') {
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
                 // Check if Admin
                 if($user->role == "admin") {
-					return response()->json('admin');
+					 return response()->json(['status'=>'success', 'role'=>$user->role, 'message'=>'Auth Successfully.'], 200);
                 } else if($user->role == "tutor"){
-					return response()->json('tutor');
+					 return response()->json(['status'=>'success', 'role'=>$user->role, 'message'=>'Auth Successfully.'], 200);
+                }else if($user->role == "student"){
+					 return response()->json(['status'=>'success', 'role'=>$user->role, 'message'=>'Auth Successfully.'], 200);
                 }else{
 					return response()->json('error');
 				}
             } else {
-                return response()->json('error');    
+                return response()->json(['status'=>'error', 'message'=>'Invalid email or password. Please try again.'], 200); 
             }
         } else {
-           return response()->json('error');    
+           return response()->json(['status'=>'error', 'message'=>'Your email address has not been verified yet. Please check your email and verify.'], 200); 
         }
     }
 	 public function logout(Request $request)
@@ -196,5 +197,25 @@ class RegisterController extends Controller
         return redirect('/');
     }
 	
-	
+	protected function messageSys(array $data)
+	{
+				$user1 = User::where('role','tutor')
+								->Where('status', 1)
+								->get();
+				if(count($user1)>0){
+				foreach($user1 as $user2){
+				$user = Auth::user();	
+				$message = new Message;
+				$message->from_id = $user->id;
+				$message->from_name = $user->name;	
+				$message->user_id = 252;
+				$message->regarding_sub = $data['subject'];
+				$message->postal_code = $data['postal_code'];
+				$message->message_body = $data['message'];
+				$message->remember_token = $data['_token'];
+				$message->save();
+				}
+						}
+		return 1;				
+	}
 }

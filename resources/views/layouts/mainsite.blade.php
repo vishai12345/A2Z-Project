@@ -22,17 +22,16 @@
   @if(Auth::user())
        <li><a href="{{URL('/userprofile')}}" style="font-size:16px;text-transform: uppercase;">Profile</a></li>
        <li><a href="{{URL('/accprofile')}}" style="font-size:16px;text-transform: uppercase;">Account</a></li>
-	   <li><button class="request-button" onclick="show_popup('request-form');changeurlTutor();">Request a tutor</button></li>
 	@else
-		 <li><button class="request-button" onclick="show_popup('request-form');changeurlTutor();">Request a tutor</button></li>
+		 <li><button class="request-button" onclick="show_popup('request-form')">Request a tutor</button></li>
 		@endif
   </ul>
   <ul class="nav navbar-nav navbar-right">
    @if(Auth::user())
 
-	  <li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="menu_drop" style="font-size:16px">{{ Auth::user()->name }}<span class="caret"></span></a>
-          <ul class="dropdown-menu profile-dropdown" id="drop_menu" style="display:none;">
+	  <li class="dropdown header--dropdown__color">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="font-size:16px">{{ Auth::user()->name }}<span class="caret"></span></a>
+          <ul class="dropdown-menu profile-dropdown" >
             <li><a href="#">Referrals</a></li>
 			
 			<li><a href="{{ url('/logout') }}"
@@ -61,7 +60,7 @@
     <div class="col-sm-5 search-field">
 				    <input type='text'
                            placeholder="What do you need help with?"
-                           class="form-control input-lg flexdatalist"
+                           class="form-control need-help input-lg flexdatalist"
                            data-url='search/searchSubject'
                            data-search-in='["category_name"]'
                            data-visible-properties='["category_name"]'
