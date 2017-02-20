@@ -4,42 +4,21 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
-use App\message;
+use App\Message;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use Mail;
+use App\Conversation;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after login / registration.
-     *
-     * @var string
-     */
     protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-
 	 
     public function __construct()
     {
@@ -203,9 +182,9 @@ class RegisterController extends Controller
 				$user1 = User::where('role','tutor')
 								->Where('status', 1)
 								->get();
+                $user = Auth::user();   
 				if(count($user1)>0){
-				foreach($user1 as $user2){
-				$user = Auth::user();	
+				
 				$message = new Message;
 				$message->from_id = $user->id;
 				$message->from_name = $user->name;	
@@ -215,7 +194,31 @@ class RegisterController extends Controller
 				$message->message_body = $data['message'];
 				$message->remember_token = $data['_token'];
 				$message->save();
-				}
+
+                $conversations = Conversation::where('user_1',$user->id)
+                                              ->where('user_2',252)
+                                              ->orWhere('user_1',252)
+                                              ->where('user_2',$user->id)
+                                              ->get();    
+                if(count($conversations)>0){
+                        
+                }else
+                {
+                $convr = new Conversation;
+                $convr->user_1 = $user->id;
+                $convr->user_2 = 252;
+                $convr->remember_token = '';
+                $convr->save();  
+
+                if($convr->save())
+                {
+                $convr = new Conversation;
+                $convr->user_1 = 252;
+                $convr->user_2 = $user->id;
+                $convr->remember_token = '';
+                $convr->save(); 
+                }
+                }
 					}
 		        return 1;				
 	}

@@ -30,7 +30,7 @@
       <ul class="nav navbar-nav nav--header">
        <li><a href="{{URL('/student/dashboard')}}">DashBoard</a></li>
        <li><a href="{{URL('/student/account')}}">Account</a></li>
-	   <li><a href="{{URL('/student/messages')}}">Messages(<?php echo count($msg); ?>)</a></li>
+	   <li><a href="{{URL('/student/messageslist')}}">Messages(<?php echo count($msg); ?>)</a></li>
 	   <li><a href="{{URL('/student/tutor')}}">Tutors</a></li>
       </ul>
 	  

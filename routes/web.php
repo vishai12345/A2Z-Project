@@ -105,10 +105,11 @@ Route::get('/admin/user-status-activate/{user_id}', 'Admin\UserController@status
 Route::get('/admin/user-status-verify/{user_id}', 'Admin\UserController@statusActivate');
 
 Route::get('/student/dashboard','StudentController@index');
-Route::get('/student/messages','StudentController@messageGet');
 Route::get('/student/messageRead/','StudentController@messageRead');
 Route::post('/student/student_acc_data','StudentController@storeData');
 Route::get('/student/account','StudentController@studentData');
 Route::get('/student/tutor','StudentController@studentMsg');
 Route::post('/student/tutor_request','StudentController@messageSend');
 Route::post('/student/send_msg','StudentController@student_msg');
+Route::get('/student/messageslist','StudentController@showMsgList');
+Route::get('/student/messages/{id}','StudentController@editMsgStatus');

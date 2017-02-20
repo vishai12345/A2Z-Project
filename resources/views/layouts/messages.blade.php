@@ -60,50 +60,41 @@
 </div>
 
 <div class="container">
-<?php $flag = false; ?>
-@foreach($message as $messages)
-   <?php
-	if($flag == false){
-	 ?>
-<h2 style="cursor:pointer" class="col-md-offset-1 link" id="{{$messages->id}}">{{$messages->from_name}}</h2>
-   <?php 
-   $flag = true; 
-   }
-   ?>
+
+@foreach($msglists as $messages)
+<h3><a href="{{URL("/student/messages/".$messages->user_1)}}" style="text-decoration:none;color:black !important;">{{$messages->user_1}}</a></h3>
 @endforeach
-<div class="saw" style="height:400px;overflow:auto">
-<div class="col-md-offset-2 " id="add_class" style="height:50px">
-<div id="msg_content"  class="col-md-10" contenteditable="true">
-@if(count($mssg)>0)
-@foreach($mssg as $msg)
-<p class="alert alert-success">{{$msg->message_body}}<span style="float: right;color:black">:{{$msg->from_name}}</span></p>
-@endforeach
-@endif
-</div>
-</div>
-</div>
-<form class="col-md-10 col-md-offset-2" id="msg_form" role="form">
-   {{ csrf_field() }}
-<input type="text" class="input" name="reply" required>
-<?php $flag = false; ?>
-@foreach($message as $messages)
-   <?php
-  if($flag == false){
-   ?>
-<input type="hidden" value="{{$messages->from_id}}" name="sender_id">
-<?php 
-   $flag = true; 
-   }
-   ?>
-@endforeach
-<button type="submit" class="btn btn-info">Reply</button>
-</form>
 </div>
 
 <a href="#" class="scrollToTop"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 
-
-
+<script>
+// $(document).ready(function(){
+//      $(".link").click(function(e) {
+//         e.preventDefault();
+// 		$(".saw").show()
+// 		$("#add_class").css({"height": "300px", "overflow": "auto","display":"block"});
+// 		$('#msg_content').show();
+		
+//         $('div.panel:visible').hide();
+//         $(this).next('div.panel').show();
+		
+		
+// 		var result = $(this).find('div.span').text();
+// 		console.log(result);
+// 		$.ajax({
+// 	url: "{{URL('/student/messageRead')}}",
+// 	type: "get", //send it through get method
+// 	data: { 
+//     ajaxid: 32, 
+// 	},
+// 	success: function(response) {
+//     //Do Something
+//   }
+// });
+//     });
+// });
+// </script>
 
 <script>
 $(function() {
@@ -111,22 +102,6 @@ $(function() {
 			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
 			$('#imagemodal').modal('show');   
 		});		
-});
-
-  $('.saw').scrollTop($('.saw')[0].scrollHeight);
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
-  $( "form#msg_form" ).on( "submit", function( event ) {
-    event.preventDefault();
-    var formData = $( this ).serialize();
-     $.post('{{URL('/student/send_msg')}}', formData, function(response) {
-        if(response.status == 'success'){
-             window.location.reload(true);
-        }
-    });
-  });
 });
 </script>
 

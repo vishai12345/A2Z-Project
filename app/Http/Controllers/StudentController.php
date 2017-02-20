@@ -10,6 +10,7 @@ use App\Http\Requests;
 use Response;
 use App\Address;
 use App\Message;
+use App\Conversation;
 use Validator;
 
 class StudentController extends Controller
@@ -44,26 +45,45 @@ class StudentController extends Controller
 		return view('layouts/student_tutors',$data);
 	}
 
-	public function messageGet()
+	public function showMsgList()
 	{
 		$user = Auth::user();
-		$data['message'] = Message::where('user_id',$user->id)
-						 ->get();
-		$data['mssg'] = Message::select('message_body','from_name')->where('user_id',$user->id)
-													   ->orWhere('from_id',$user->id)
-						 ->get();			
-						
-		return view('/layouts/message_page',$data);
+		$data['msglists'] = Conversation::where('user_2',$user->id)
+										
+										->get();
+
+		return view('layouts/messages',$data);
 	}
 	
-	public function messageRead()
+	public function editMsgStatus($id)
 	{	
-		
-		$msg_id = $_GET['ajaxid'];
-		$msg = Message::find($msg_id);
-		$msg->read_message = 1;
-		$msg->save();
+		$user = Auth::user();
+		$data['message'] = Message::where('from_id',$id)
+						 ->get();
+		$msgs = Message::where('from_id',$id)
+					   ->where('user_id',$user->id)
+					   ->get();
+
+		if(count($msgs)>0)
+		{
+					foreach($msgs as $msg)
+			{
+				if($msg->read_message == 0)
+				{
+				$msg->read_message = 1;
+				$msg->save();
+				}
+			}		   
+		}
+		$data['mssg'] = Message::select('message_body','from_name')->where('user_id',$user->id)
+												->where('from_id',$id)
+												->orWhere('from_id',$user->id)
+												->where('user_id',$id)
+												->get();	
+												
+		return view('/layouts/message_page',$data);
 	}
+
 	public function storeData(Request $request)
 	{	
 		
@@ -173,7 +193,10 @@ class StudentController extends Controller
 				$message->message_body = $data['reply'];
 				$message->remember_token = $data['_token'];
 				$message->save();
-			if($message->save()){ return redirect('/student/messages');	}else{}
+			if($message->save())
+				{ 
+			return response()->json(['status'=>'success', 'message'=>'Successful.'], 200);
+				}
 		    
 	}
 }
