@@ -1,5 +1,4 @@
 @extends('layouts.default')
-
 @section('content')
 
 <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -136,17 +135,26 @@
                </div>
                <div class="row">
                   <div class="col-md-6 req-text-field subject-padding">
-                     <input type="text" class="input" placeholder="Subject (Level) *" name="subject" id="r_subject" required>
+                     <input type="text" class="input" placeholder="Subject (Level) *" name="subject" id="r_subject" >
+                 <span class="help-block error-msg register-tutor-subject" style="color:red">
+                  <strong></strong>
+                 </span>
                   </div>
                   <div class="col-md-6 req-text-field postcode-padding">
-                     <input type="text" class="input" placeholder="Postcode *" name="postalcode" id="r_postcode" required>
+                     <input type="text" class="input" placeholder="Postcode *" name="postalcode" id="r_postcode" >
+                      <span class="help-block error-msg register-tutor-postalcode" style="color:red">
+                        <strong></strong>
+                        </span>
                   </div>
                </div>
                <div class="col-md-12 form-padding">
                   <textarea class="input" placeholder="Tell us more about what are you looking for" name="message"></textarea>
+                          <span class="help-block error-msg register-tutor-message" style="color:red">
+                        <strong></strong>
+                       </span>
                </div>
                <div class="col-md-4 col-md-offset-4">
-                  <button class="botton submit-botton" type="submit" data-loading-text="Loading..." id="btn_load">Submit Request</button>
+                  <button class="botton submit-botton" type="submit"  id="btn_load">Submit Request</button>
                </div>
                <div class="col-md-12">
                   <p style="float: left;">By clicking this button you're agreeing to our <a href="#"><span style="text-shadow: 0px 0px 2px red;">Terms & Conditions<span></a></p>
@@ -168,12 +176,12 @@ $(document).ready(function(){
                 if(response.status == 'success'){	
 				toastr.success('Message has been sent Successfully.', 'Success', {timeOut: 2000});
 				 $("#requestTutor")[0].reset();
-				$("#request-form-1").toggle(500);
+				$("#request-form-1").hide(500);
                 }else if(response.status == 'error'){
-				toastr.error(response.message, 'Success', {timeOut: 2000});
-                }else {
+            toastr.error(response.message, 'Success', {timeOut: 2000});
+                }else{
                   $.each(response, function(key, val){
-                      $('.register-student-'+key).find('strong').html(val);
+                      $('.register-tutor-'+key).find('strong').html(val);
                   });
                 }
             });

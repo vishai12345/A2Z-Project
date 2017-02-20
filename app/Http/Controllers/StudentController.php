@@ -27,16 +27,30 @@ class StudentController extends Controller
 	public function studentData()
 	{	
 		$user = Auth::user();
-		$data['datas'] = User::find($user->id);		
+		$data['datas'] = User::find($user->id);	
+		$data['msg'] = Message::where('user_id',$user->id)
+						->where('read_message',0)
+						->get();	
 		return view('layouts/studentAcc',$data);
 	}
 	
+	public function studentMsg()
+	{	
+		$user = Auth::user();
+		$data['datas'] = User::find($user->id);	
+		$data['msg'] = Message::where('user_id',$user->id)
+						->where('read_message',0)
+						->get();	
+		return view('layouts/student_tutors',$data);
+	}
+
 	public function messageGet()
 	{
 		$user = Auth::user();
 		$data['message'] = Message::where('user_id',$user->id)
 						 ->get();
-		$data['mssg'] = Message::select('message_body')->where('user_id',$user->id)
+		$data['mssg'] = Message::select('message_body','from_name')->where('user_id',$user->id)
+													   ->orWhere('from_id',$user->id)
 						 ->get();			
 						
 		return view('/layouts/message_page',$data);
@@ -54,7 +68,7 @@ class StudentController extends Controller
 	{	
 		
 		$this->validate($request, ['p_fname' => 'required','p_lname' => 'required','p_mobile' => 'required','p_email' => 'required']);
-	//	dd($request->p_password,$request->p_con_pwd);die;
+	
 		$data = $request->all();
 			$id = Auth::id();
 			$user = User::where('id',$id)->get();
@@ -95,39 +109,71 @@ class StudentController extends Controller
 					return response()->json(['status'=>'success', 'message'=>'Successful.','add' => $add1, 'user' => $user1], 200);
 				}else{
 					return response()->json(['status'=>'error', 'message'=>'Error.'], 200);
-					
 				}
 	}
 	
 		public function messageSend(Request $request)
 	{
 				$data = $request->all();
-				$this->validate($request, ['subject' => 'required','postalcode' => 'required','message' => 'required']);
-				$user1 = Address::where('postcode',$data['postalcode'])
-								->get();
-				if(count($user1)>0){
-					$user = Auth::user();	
-				foreach($user1 as $user2){
-				$message = new Message;
-				$message->from_id = $user->id;
-				$message->from_name = $user->name;	
-				$message->user_id = $user2->user_id;
-				$message->regarding_sub = $data['subject'];
-				$message->postal_code = $data['postalcode'];
-				$message->message_body = $data['message'];
-				$message->remember_token = $data['_token'];
-				$message->save();
-				}
-						}else
-						{
-							return response()->json(['status'=>'error', 'message'=>'Postal Code does not exist'], 200);
-						}
-
+			    $validation = $this->validator($request->all());
+       			if ($validation->fails())  { 
+         		return response()->json($validation->errors()->toArray());
+      		    }else
+      		    {
+      		    $user = Auth::user();	
+      		    $tutors = TutorProfile::all();	
+      		    foreach($tutors as $tutor)
+      		    {
+      		    	$user1 = Address::all();
+      		    	if(count($user1)>0)
+      		    	{
+      		    		foreach($user1 as $user2)
+      		    	{
+      		    		if($tutor['user_id'] == $user2['user_id'])
+      		    		{
+			      		    $message = new Message;
+							$message->from_id = $user->id;
+							$message->from_name = $user->name;	
+							$message->user_id = $user2->user_id;
+							$message->regarding_sub = $data['subject'];
+							$message->postal_code = $data['postalcode'];
+							$message->message_body = $data['message'];
+							$message->remember_token = $data['_token'];
+							$message->save();
+      		    		}
+      		    	}
+      		    	}
+      		    }
 		if($message){
 			return response()->json(['status'=>'success', 'message'=>'Successful.','data'=>$message], 200);
 		}else{
 			return response()->json(['status'=>'error', 'message'=>'Error.'], 200);
-		}
+  }
+	   }
+            }
+
+	protected function validator(array $data)
+    {  
+            return Validator::make($data, [
+                'subject' => 'required|max:255',
+                'postalcode' => 'required',
+                'message' => 'required|max:255',
+            ]);  
+    }
+
+	public function student_msg(Request $request)
+	{
+		$data = $request->all();
+
+				$user = Auth::user();	
+				$message = new Message;
+				$message->from_id = $user->id;
+				$message->from_name = $user->name;	
+				$message->user_id = $data['sender_id'];
+				$message->message_body = $data['reply'];
+				$message->remember_token = $data['_token'];
+				$message->save();
+			if($message->save()){ return redirect('/student/messages');	}else{}
+		    
 	}
-	
 }

@@ -109,7 +109,6 @@ Route::get('/student/messages','StudentController@messageGet');
 Route::get('/student/messageRead/','StudentController@messageRead');
 Route::post('/student/student_acc_data','StudentController@storeData');
 Route::get('/student/account','StudentController@studentData');
-Route::get('/student/tutor',function(){
-	return view('layouts/student_tutors');
-});
+Route::get('/student/tutor','StudentController@studentMsg');
 Route::post('/student/tutor_request','StudentController@messageSend');
+Route::post('/student/send_msg','StudentController@student_msg');

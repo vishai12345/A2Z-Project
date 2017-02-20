@@ -28,10 +28,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav nav--header">
-       <li><a href="{{URL('/userprofile')}}">Profile</a></li>
-       <li><a href="{{URL('/accprofile')}}">Account</a></li>
-	   <li><a href="{{URL('/student/messages')}}">Messages</a></li>
-       <li><a href="#" onclick="show_popup('request-form')">Request a tutor</a></li>
+       <li><a href="{{URL('/student/dashboard')}}">DashBoard</a></li>
+       <li><a href="{{URL('/student/account')}}">Account</a></li>
+     <li><a href="{{URL('/student/messages')}}">Messages</a></li>
+     <li><a href="{{URL('/student/tutor')}}">Tutors</a></li>
       </ul>
 	  
      <ul class="nav navbar-nav navbar-right nav--header">
@@ -71,60 +71,73 @@
    }
    ?>
 @endforeach
-<div class="saw" style="display:none">
-<div class="col-md-offset-2" id="add_class" style="height:50px">
-<div id="msg_content" style="display:none">
+<div class="saw" style="height:400px;overflow:auto">
+<div class="col-md-offset-2 " id="add_class" style="height:50px">
+<div id="msg_content"  class="col-md-10">
 @foreach($mssg as $msg)
-<p class="alert alert-success">{{$msg->message_body}}</p>
+<p class="alert alert-success">{{$msg->message_body}}<span style="float: right;color:black">:{{$msg->from_name}}</span></p>
 @endforeach
 </div>
 </div>
-<form class="col-md-8 col-md-offset-2">
-<input type="text" class="input">
-<span><button type="submit" class="btn btn-info">Reply</button></span>
+</div>
+<form class="col-md-10 col-md-offset-2" method="post" action="{{URL('/student/send_msg')}}">
+   {{ csrf_field() }}
+<input type="text" class="input" name="reply">
+<?php $flag = false; ?>
+@foreach($message as $messages)
+   <?php
+  if($flag == false){
+   ?>
+<input type="hidden" value="{{$messages->from_id}}" name="sender_id">
+<?php 
+   $flag = true; 
+   }
+   ?>
+@endforeach
+<button type="submit" class="btn btn-info">Reply</button>
 </form>
 </div>
-</div>
+
 <a href="#" class="scrollToTop"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 
-<script>
-$(document).ready(function(){
-     $(".link").click(function(e) {
-        e.preventDefault();
-		$(".saw").show()
-		$("#add_class").css({"height": "300px", "overflow": "auto","display":"block"});
-		$('#msg_content').show();
+// <script>
+// $(document).ready(function(){
+//      $(".link").click(function(e) {
+//         e.preventDefault();
+// 		$(".saw").show()
+// 		$("#add_class").css({"height": "300px", "overflow": "auto","display":"block"});
+// 		$('#msg_content').show();
 		
-        $('div.panel:visible').hide();
-        $(this).next('div.panel').show();
+//         $('div.panel:visible').hide();
+//         $(this).next('div.panel').show();
 		
 		
-		var result = $(this).find('div.span').text();
-		console.log(result);
-		$.ajax({
-	url: "{{URL('/student/messageRead')}}",
-	type: "get", //send it through get method
-	data: { 
-    ajaxid: 32, 
-	},
-	success: function(response) {
-    //Do Something
-  }
-});
-    });
-});
-</script>
+// 		var result = $(this).find('div.span').text();
+// 		console.log(result);
+// 		$.ajax({
+// 	url: "{{URL('/student/messageRead')}}",
+// 	type: "get", //send it through get method
+// 	data: { 
+//     ajaxid: 32, 
+// 	},
+// 	success: function(response) {
+//     //Do Something
+//   }
+// });
+//     });
+// });
+// </script>
 
-<script>
-$(document).ready(function(){
-    $("#menu_drop").click(function(){
-		$("#drop_menu").animate({padding: '10px'});
-		 $("#drop_menu").toggle(300);	
+// <script>
+// $(document).ready(function(){
+//     $("#menu_drop").click(function(){
+// 		$("#drop_menu").animate({padding: '10px'});
+// 		 $("#drop_menu").toggle(300);	
 			
-    });
+//     });
 	
-});
-</script>
+// });
+// </script>
 <script>
 $(function() {
 		$('.pop').on('click', function() {

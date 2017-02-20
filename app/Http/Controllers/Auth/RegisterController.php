@@ -115,7 +115,8 @@ class RegisterController extends Controller
     public function register(Request $request)
     {   
 			$data = $request->all();
-        $validation = $this->validator($request->all());
+            $validation = $this->validator($request->all());
+
         if ($validation->fails())  {  
             return response()->json($validation->errors()->toArray());
         } else{
@@ -215,7 +216,7 @@ class RegisterController extends Controller
 				$message->remember_token = $data['_token'];
 				$message->save();
 				}
-						}
-		return 1;				
+					}
+		        return 1;				
 	}
 }

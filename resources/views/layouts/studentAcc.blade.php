@@ -30,7 +30,7 @@
       <ul class="nav navbar-nav nav--header">
        <li><a href="{{URL('/student/dashboard')}}">DashBoard</a></li>
        <li><a href="{{URL('/student/account')}}">Account</a></li>
-	   <li><a href="{{URL('/student/messages')}}">Messages</a></li>
+	   <li><a href="{{URL('/student/messages')}}">Messages(<?php echo count($msg); ?>)</a></li>
 	   <li><a href="{{URL('/student/tutor')}}">Tutors</a></li>
       </ul>
 	  
@@ -146,14 +146,23 @@
                </div>
                <div class="row">
                   <div class="col-md-6 req-text-field subject-padding">
-                     <input type="text" class="input" placeholder="Subject (Level) *" name="subject" id="r_subject" required>
+                     <input type="text" class="input" placeholder="Subject (Level) *" name="subject" id="r_subject" >
+                 <span class="help-block error-msg register-tutor-subject" style="color:red">
+                  <strong></strong>
+                 </span>
                   </div>
                   <div class="col-md-6 req-text-field postcode-padding">
-                     <input type="text" class="input" placeholder="Postcode *" name="postalcode" id="r_postcode" required>
+                     <input type="text" class="input" placeholder="Postcode *" name="postalcode" id="r_postcode" >
+                 <span class="help-block error-msg register-tutor-postalcode" style="color:red">
+                        <strong></strong>
+                        </span>
                   </div>
                </div>
                <div class="col-md-12 form-padding">
                   <textarea class="input" placeholder="Tell us more about what are you looking for" name="message"></textarea>
+               <span class="help-block error-msg register-tutor-message" style="color:red">
+                        <strong></strong>
+                       </span>
                </div>
                <div class="col-md-4 col-md-offset-4">
                   <button class="botton submit-botton" type="submit">Submit Request</button>
@@ -197,9 +206,9 @@ $(document).ready(function(){
 				$("#request-form-1").toggle(500);
                 }else if(response.status == 'error'){
 				toastr.error(response.message, 'Success', {timeOut: 2000});
-                }else {
+                }else{
                   $.each(response, function(key, val){
-                      $('.register-student-'+key).find('strong').html(val);
+                      $('.register-tutor-'+key).find('strong').html(val);
                   });
                 }
             });
